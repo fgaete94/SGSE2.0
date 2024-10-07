@@ -3,5 +3,6 @@ export interface Producto{
     name: string;
     price: number;
     sku: number;
+    deleted_at: Date;
     
 }

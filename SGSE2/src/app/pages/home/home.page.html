@@ -7,14 +7,25 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+ 
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="d-flex-center">
+    <ion-list *ngIf="productos.length > 0; else listaVacia">
+      <ion-item *ngFor="let producto of productos">
+        <ion-label>{{producto.name}}</ion-label>
+      </ion-item>
+    </ion-list>
+  
+    <!-- Template para cuando la lista está vacía -->
+    <ng-template #listaVacia>
+      <ion-item lines="none">
+        <ion-label class="ion-text-center">
+          <ion-text color="medium">
+            <h2>No hay productos disponibles.</h2>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+    </ng-template>
+  
   </div>
 </ion-content>
