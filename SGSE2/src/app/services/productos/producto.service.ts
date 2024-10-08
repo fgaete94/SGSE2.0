@@ -9,7 +9,7 @@ import { map, Observable } from 'rxjs';
 })
 export class ProductoService {
 
-  path = "productos"
+  path = "Producto"
 
   constructor(private apiService:ApiConfigService) { }
 
@@ -18,7 +18,7 @@ export class ProductoService {
     return this.apiService.get<Producto[]>(this.path, params).pipe(
       map(response => {
         console.log(response)
-        const filteredBody = response.body?.filter(product => product.deleted_at === null);
+        const filteredBody = response.body?.filter(product => product.deleted_at == null);
 
         // Retornar una nueva instancia de HttpResponse con el cuerpo filtrado
         return new HttpResponse({

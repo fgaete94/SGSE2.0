@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: "https://nfpulkphukfwoqsmpmaj.supabase.co/rest/v1/",
+  api_url: "https://nfpulkphukfwoqsmpmaj.supabase.co/rest/v1",
   apiKeySupabase: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5mcHVsa3BodWtmd29xc21wbWFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcyMTk0MTgsImV4cCI6MjA0Mjc5NTQxOH0.Yc0or48cXI7dgP5y7ylxMRG2M_Sl3lyQJaKYdg0GOis" 
 };
 
