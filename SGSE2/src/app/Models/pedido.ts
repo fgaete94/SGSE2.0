@@ -10,4 +10,5 @@ export interface Pedido{
     cliente: Cliente;
     usuario: User;
     detalle_pedido: DetallePedido;
+    n_pedido: number;
 }
