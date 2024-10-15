@@ -2,13 +2,19 @@ import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
+import { User } from 'src/app/Models/user';
+import { HttpParams, HttpResponse } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
+import { ApiConfigService } from '../api-config/api-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
 
-  constructor() { }
+  path = "Usuario"
+
+  constructor(private apiService:ApiConfigService) { }
 
   async isDateExpired(): Promise<boolean> {
     const userData = await this.getDecryptedUserData();
@@ -39,5 +45,23 @@ export class AuthServiceService {
 
   async logout() {
     await Preferences.remove({ key: 'userData' });
+  }
+
+  obtener_usuario(username: string): Observable<HttpResponse<User | null>> {
+    const params = new HttpParams().set('select',"*");
+    return this.apiService.get<User[]>(this.path, params).pipe(
+      map(response => {
+        console.log(response)
+        const filteredBody = response.body?.find(user=> user.user == username  && user.rol != null);
+
+        // Retornar una nueva instancia de HttpResponse con el cuerpo filtrado
+        return new HttpResponse({
+          body: filteredBody,   // El nuevo array filtrado
+          headers: response.headers,  // Copia los headers originales
+          status: response.status,    // Copia el status original
+          statusText: response.statusText,  // Copia el statusText original
+        });
+      })
+    );
   }
 }

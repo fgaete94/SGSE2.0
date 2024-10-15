@@ -15,6 +15,7 @@
     icon="person-circle-outline"
     type="user"
     label="example@example.com"
+    [(ngModel)]="username"
     ></app-custom-input>
 
     
@@ -25,13 +26,14 @@
    
     type="password"
     label="Password"
+    [(ngModel)]="password"
     ></app-custom-input>
 
    
 
     <p class="ion-text-end" routerLink="forgot-password">¿Olvidaste tu contraseña?</p>
 
-    <ion-button  expand="block"  mode="ios" class="submit" type="submit" >
+    <ion-button (click)="login(username, password)" expand="block"  mode="ios" class="submit" type="submit" >
       Ingresar
       <ion-icon slot="end" name="log-in-outline"></ion-icon>
     </ion-button>
