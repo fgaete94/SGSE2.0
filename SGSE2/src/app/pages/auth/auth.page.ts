@@ -4,7 +4,7 @@ import { Preferences } from '@capacitor/preferences';
 import { User } from 'src/app/Models/user';
 import { AuthServiceService } from 'src/app/services/auth-service/auth-service.service';
 import { environment } from 'src/environments/environment';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -21,40 +21,42 @@ export class AuthPage implements OnInit {
 
   private sessionDuration = 5 * 60 * 1000;
 
-  userInfo : User[]=[];
+  userInfo: User | null = null;
 
-
-  constructor(private router : Router, private _authService: AuthServiceService) { }
+  constructor(private router: Router, private _authService: AuthServiceService) { }
 
   ngOnInit() {
-    this.obtenerUser(this.username);
+    
+    
   }
 
-  async obtenerUser(username: string){
-    const response: HttpResponse<User | null>  = await firstValueFrom(this._authService.obtener_usuario(username));
-    console.log(response)
-    this.userInfo = response.body ? [response.body] : [];
+  async obtenerUser(username: string): Promise<User | null> {
+      const response: HttpResponse<User | null> = await firstValueFrom(this._authService.obtener_usuario(username));
+      console.log(response);
+      return response.body ? response.body : null;
   }
 
-  async login(username: string, password: string){
-    if (this.userInfo.length > 0 && this.userInfo[0].user === username && this.userInfo[0].password === password){
-      const expiration = Date.now() + this.sessionDuration;
-      const userData = { ...this.userInfo, expiration };
-      /*const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(userData), environment.secretKey ).toString();
+  async login(username: string, password: string) {
+    try {
+        const response = await firstValueFrom(this._authService.obtener_usuario(username));
+        this.userInfo = response.body;
 
-      /await Preferences.set({
-        key: 'userData',
-        value: encryptedData,
-      }); */
-      
+        if (this.userInfo && this.userInfo.user === username && this.userInfo.password === password) {
+            //const expiration = Date.now() + this.sessionDuration;
+           //const userData = { ...this.userInfo, expiration };
+            /*const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(userData), environment.secretKey ).toString();
 
-      this.router.navigate(['/home']);
-    }else{
-      console.error("Usuario no existente")
+            /await Preferences.set({
+                key: 'userData',
+                value: encryptedData,
+            }); */
+
+            this.router.navigate(['/home']);
+        } else {
+            console.error("Usuario no existente o contraseña incorrecta");
+        }
+    } catch (error) {
+        console.error("Error al obtener el usuario:", error);
     }
   }
-
-
-
-
 }

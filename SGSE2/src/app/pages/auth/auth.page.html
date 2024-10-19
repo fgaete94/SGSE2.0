@@ -1,52 +1,30 @@
 <app-header title="Login"></app-header>
 
 <ion-content [fullscreen]="true">
-
   <div class="d-flex-center">
-
-      <form  class="auth-form" >
-
+    <ion-card color="light">
+      <ion-card-header class="logo-container">
         <app-logo></app-logo>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item color="medium">
+            <ion-input labelPlacement="floating" value="Username" [(ngModel)]="username">
+              <div slot="label">Usuario <ion-text color="danger">(Required)</ion-text></div>
+            </ion-input>
+          </ion-item>
 
-
-        <!-- Email-->
-    <app-custom-input
-    autocomplete="email"
-    icon="person-circle-outline"
-    type="user"
-    label="example@example.com"
-    [(ngModel)]="username"
-    ></app-custom-input>
-
-    
-
-    <!-- Password-->
-    <app-custom-input
-    icon="lock-closed-outline"
-   
-    type="password"
-    label="Password"
-    [(ngModel)]="password"
-    ></app-custom-input>
-
-   
-
-    <p class="ion-text-end" routerLink="forgot-password">¿Olvidaste tu contraseña?</p>
-
-    <ion-button (click)="login(username, password)" expand="block"  mode="ios" class="submit" type="submit" >
-      Ingresar
-      <ion-icon slot="end" name="log-in-outline"></ion-icon>
-    </ion-button>
-
-    <ion-button class="ion-margin-top" routerLink="sign-up" expand="block"  mode="ios"  fill="outline">
-      Registrate
-      <ion-icon slot="end" name="person-add-outline"></ion-icon>
-    </ion-button>
-
-  </form>
-
+          <ion-item color="medium" >
+            <ion-input labelPlacement="floating" value="Password" [(ngModel)]="password" placeholder="Enter Password">
+              <div slot="label">Password <ion-text color="danger">(Required)</ion-text></div>
+            </ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
   </div>
-
-
-
+  <ion-button (click)="login(username,password)" expand="block" mode="ios" class="submit">
+    Ingresar
+    <ion-icon slot="end" name="log-in-outline"></ion-icon>
+  </ion-button>
 </ion-content>

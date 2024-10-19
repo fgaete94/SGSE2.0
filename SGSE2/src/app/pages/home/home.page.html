@@ -1,10 +1,9 @@
-<app-header title="Home"></app-header>
+<app-header title="Home">
+</app-header>
 
 <ion-content [fullscreen]="true">
- 
-
   <div class="d-flex-center">
-    <ion-list *ngIf="pedidos.length > 0; else listaVacia" >
+    <ion-list *ngIf="pedidos.length > 0; else listaVacia">
       <ion-item *ngFor="let pedido of pedidos">
         <ion-card>
           <ion-card-header>
@@ -14,7 +13,7 @@
         </ion-card>
       </ion-item>
     </ion-list>
-  
+
     <!-- Template para cuando la lista está vacía -->
     <ng-template #listaVacia>
       <ion-item lines="none">
@@ -25,10 +24,14 @@
         </ion-label>
       </ion-item>
     </ng-template>
-  
   </div>
-  <ion-button  expand="block"  mode="ios" class="submit"  >
+  
+  <ion-button expand="block" mode="ios" class="submit">
     Generar Ruta
     <ion-icon slot="end" name="location-outline"></ion-icon>
   </ion-button>
+  <ion-button (click)="logout()" expand="block" mode="ios">
+    Salir
+    <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+</ion-button>
 </ion-content>
