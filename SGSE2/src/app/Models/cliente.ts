@@ -6,5 +6,6 @@ export interface Cliente{
     telefono: number;
     direccion: string;
     comuna: Comuna;
+    mail: string;
 
 }

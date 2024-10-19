@@ -10,6 +10,56 @@
             <ion-card-title>{{pedido.cliente}}</ion-card-title>
             <ion-card-subtitle>Numero de Pedido: {{pedido.n_pedido}}</ion-card-subtitle>
           </ion-card-header>
+          <ion-button id="open-modal" expand="block">Ver Detalle</ion-button>
+
+          <ion-modal #modal trigger="open-modal" >
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-title>Pedido N° {{pedido.n_pedido}} </ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button (click)="modal.dismiss()">Cerrar</ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+              </ion-header>
+              <ion-content>
+                <ion-list>
+                  <ion-item>
+                   
+                    <ion-label>
+                      <h2>Cliente:</h2>
+                      <p>{{pedido.cliente}}</p>
+                    </ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>
+                      <h2>Dirección:</h2>
+                      <p>{{pedido.direccion}}</p>
+                    </ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>
+                      <h2>Comuna:</h2>
+                      <p>{{pedido.comuna}}</p>
+                    </ion-label>
+                  </ion-item>
+                  <ion-item  *ngFor="let cliente of cliente">
+                    <ion-label>
+                      <h2>Contacto:</h2>
+                        <p *ngIf="pedido.cliente.toString() === cliente.nombre">{{cliente.telefono}}</p>
+                        <p *ngIf="pedido.cliente.toString() === cliente.nombre">{{cliente.mail}}</p>
+                    </ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>
+                      <h2>Detalle:</h2>
+                      <p>{{pedido.detalle_pedido}}</p>
+                    </ion-label>
+                  </ion-item>
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
         </ion-card>
       </ion-item>
     </ion-list>

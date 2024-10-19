@@ -15,6 +15,10 @@ const routes: Routes = [
     redirectTo: 'auth',
     pathMatch: 'full'
   },
+  {
+    path: 'crear-pedido',
+    loadChildren: () => import('./pages/crear-pedido/crear-pedido/crear-pedido.module').then( m => m.CrearPedidoPageModule)
+  },
 
 ];
 

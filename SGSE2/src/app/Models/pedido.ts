@@ -7,7 +7,7 @@ export interface Pedido{
     id: number;
     direccion: string;
     comuna: Comuna;
-    cliente: Cliente;
+    cliente: Cliente ;
     usuario: User;
     detalle_pedido: DetallePedido;
     n_pedido: number;
