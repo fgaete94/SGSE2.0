@@ -4,8 +4,9 @@ import { Preferences } from '@capacitor/preferences';
 import { User } from 'src/app/Models/user';
 import { AuthServiceService } from 'src/app/services/auth-service/auth-service.service';
 import { environment } from 'src/environments/environment';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { ApiConfigService } from 'src/app/services/api-config/api-config.service';
 
 @Component({
   selector: 'app-auth',
@@ -15,31 +16,40 @@ import { firstValueFrom } from 'rxjs';
 export class AuthPage implements OnInit {
 
   message: string = '';
-
-  username = "";
+  user = "";
   password = "";
+  errorMessage: string = '';
 
   private sessionDuration = 5 * 60 * 1000;
 
   userInfo: User | null = null;
 
-  constructor(private router: Router, private _authService: AuthServiceService) { }
+  constructor(private router: Router, private _authService: AuthServiceService, private apiService: ApiConfigService) {}
 
-  ngOnInit() {
-    
-    
-  }
+  ngOnInit() {}
 
   async obtenerUser(username: string): Promise<User | null> {
-      const response: HttpResponse<User | null> = await firstValueFrom(this._authService.obtener_usuario(username));
-      console.log(response);
-      return response.body ? response.body : null;
+    try {
+      const params = new HttpParams().set('user', `eq.${username}`);
+      const response: HttpResponse<User[]> = await firstValueFrom(
+        this.apiService.get<User[]>('Usuario', params)
+      );
+      
+      if (response.body && response.body.length > 0) {
+        return response.body[0];
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error("Error al obtener el usuario:", error);
+      return null;
+    }
   }
 
   async login(username: string, password: string) {
     try {
-        const response = await firstValueFrom(this._authService.obtener_usuario(username));
-        this.userInfo = response.body;
+        const user = await this.obtenerUser(username);
+        this.userInfo = user;
 
         if (this.userInfo && this.userInfo.user === username && this.userInfo.password === password) {
             const expiration = Date.now() + this.sessionDuration;
@@ -53,10 +63,16 @@ export class AuthPage implements OnInit {
 
             this.router.navigate(['/home']);
         } else {
-            console.error("Usuario no existente o contraseña incorrecta");
+            this.errorMessage = "Usuario no existente o contraseña incorrecta";
+            console.error(this.errorMessage);
         }
     } catch (error) {
-        console.error("Error al obtener el usuario:", error);
+        this.errorMessage = "Error al obtener el usuario. Por favor, intente nuevamente.";
+        console.error(this.errorMessage, error);
     }
+  }
+
+  goToSignUp() {
+    this.router.navigate(['/sign-up']);
   }
 }

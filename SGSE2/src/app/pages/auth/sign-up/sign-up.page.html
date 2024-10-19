@@ -1,13 +1,95 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>sign-up</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Registrarse"></app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">sign-up</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="d-flex-center">
+    <ion-card color="light">
+      <ion-card-header class="logo-container">
+        <app-logo></app-logo>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Mensaje de error -->
+        <ion-text *ngIf="errorMessage" color="danger">
+          <p>{{ errorMessage }}</p>
+        </ion-text>
+
+        <ion-list>
+          <!-- Nombre -->
+          <ion-item color="light">
+            <ion-input 
+              labelPlacement="floating" 
+              [(ngModel)]="nombre" 
+              placeholder="Ingrese su nombre completo">
+              <div slot="label">Nombre Completo <ion-text color="danger">(Requerido)</ion-text></div>
+            </ion-input>
+          </ion-item>
+
+          <!-- Correo Electrónico -->
+          <ion-item color="light">
+            <ion-input 
+              labelPlacement="floating" 
+              [(ngModel)]="correo" 
+              type="email" 
+              placeholder="Ingrese su correo electrónico">
+              <div slot="label">Correo Electrónico <ion-text color="danger">(Requerido)</ion-text></div>
+            </ion-input>
+          </ion-item>
+
+          <!-- Número de Teléfono -->
+          <ion-item color="light">
+            <ion-input 
+              labelPlacement="floating" 
+              [(ngModel)]="telefono" 
+              type="tel" 
+              placeholder="Ingrese su número de teléfono">
+              <div slot="label">Número de Teléfono <ion-text color="danger">(Requerido)</ion-text></div>
+            </ion-input>
+          </ion-item>
+
+          <!-- Contraseña -->
+          <ion-item color="light">
+            <ion-input 
+              labelPlacement="floating" 
+              [(ngModel)]="password" 
+              type="password" 
+              placeholder="Ingrese su contraseña">
+              <div slot="label">Contraseña <ion-text color="danger">(Requerido)</ion-text></div>
+            </ion-input>
+          </ion-item>
+
+          <!-- Confirmar Contraseña -->
+          <ion-item color="light">
+            <ion-input 
+              labelPlacement="floating" 
+              [(ngModel)]="confirmPassword" 
+              type="password" 
+              placeholder="Confirme su contraseña">
+              <div slot="label">Confirme Contraseña <ion-text color="danger">(Requerido)</ion-text></div>
+            </ion-input>
+          </ion-item>
+        </ion-list>
+
+        <!-- Botones -->
+        <div class="button-container">
+          <ion-button 
+            expand="block" 
+            color="primary" 
+            (click)="signUp()" 
+            class="signup-button" 
+            [disabled]="password !== confirmPassword">
+            <ion-icon name="document-text-outline"></ion-icon>
+            Registrarme
+          </ion-button>
+
+          <ion-button 
+            expand="block" 
+            color="danger" 
+            (click)="goToLogin()" 
+            class="signup-button">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            Volver
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

@@ -11,11 +11,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/auth/auth.module').then( m => m.AuthPageModule)
   },
   {
+    path: 'sign-up',
+    loadChildren: () => import('./pages/auth/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+  },
+  {
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full'
   },
-
 ];
 
 @NgModule({
