@@ -30,8 +30,14 @@
     Generar Ruta
     <ion-icon slot="end" name="location-outline"></ion-icon>
   </ion-button>
+  
+  <ion-button *ngIf="isAdmin()" expand="block" mode="ios">
+    Opciones de Administrador
+    <ion-icon slot="end" name="settings-outline"></ion-icon>
+  </ion-button>
+  
   <ion-button (click)="logout()" expand="block" mode="ios">
     Salir
     <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
-</ion-button>
+  </ion-button>
 </ion-content>
