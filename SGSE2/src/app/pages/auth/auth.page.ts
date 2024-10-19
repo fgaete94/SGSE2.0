@@ -42,8 +42,8 @@ export class AuthPage implements OnInit {
         this.userInfo = response.body;
 
         if (this.userInfo && this.userInfo.user === username && this.userInfo.password === password) {
-            //const expiration = Date.now() + this.sessionDuration;
-           //const userData = { ...this.userInfo, expiration };
+            const expiration = Date.now() + this.sessionDuration;
+            const userData = { ...this.userInfo, expiration };
             /*const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(userData), environment.secretKey ).toString();
 
             /await Preferences.set({
