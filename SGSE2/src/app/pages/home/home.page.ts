@@ -88,4 +88,8 @@ export class HomePage {
     console.log("Verificando rol de usuario:", this.userInfo?.rol);
     return this.userInfo?.rol?.id === 1;
   }
+
+  goToAdmin() {
+    this.router.navigate(['/admin']);
+  }
 }
