@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { HttpResponse, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { ApiConfigService } from 'src/app/services/api-config/api-config.service';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-auth',
@@ -66,7 +67,32 @@ export class AuthPage implements OnInit {
         } else {
             this.errorMessage = "Usuario no existente o contraseña incorrecta";
             console.error(this.errorMessage);
+      const response = await firstValueFrom(this._authService.obtener_usuario(username));
+      this.userInfo = response.body;
+  
+      console.log("Información del usuario después del login:", this.userInfo);
+  
+      if (this.userInfo && this.userInfo.user === username && this.userInfo.password === password) {
+        // Verifica que rol esté presente antes de cifrar
+        console.log("Rol del usuario:", this.userInfo.rol);
+        if (!this.userInfo.rol) {
+          console.error("Error: El rol no está definido en la información del usuario");
+          return;
         }
+  
+        const expiration = Date.now() + this.sessionDuration;
+        const userData = { ...this.userInfo, expiration };
+        const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(userData), environment.secretKey).toString();
+  
+        await Preferences.set({
+          key: 'userData',
+          value: encryptedData,
+        });
+  
+        this.router.navigate(['/home']);
+      } else {
+        console.error("Usuario no existente o contraseña incorrecta");
+      }
     } catch (error) {
         this.errorMessage = "Error al obtener el usuario. Por favor, intente nuevamente.";
         console.error(this.errorMessage, error);
@@ -84,6 +110,7 @@ export class AuthPage implements OnInit {
     } else {
       this.passwordType = 'password';
       this.passwordIcon = 'eye-off';
+      console.error("Error al obtener el usuario:", error);
     }
   }
 }
