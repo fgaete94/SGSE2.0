@@ -48,18 +48,19 @@ export class AuthServiceService {
   }
 
   obtener_usuario(username: string): Observable<HttpResponse<User | null>> {
-    const params = new HttpParams().set('select',"*");
+    const params = new HttpParams().set('select', '*, rol(*)'); // Incluye la relación del rol
+  
     return this.apiService.get<User[]>(this.path, params).pipe(
       map(response => {
-        console.log(response)
-        const filteredBody = response.body?.find(user=> user.user == username  && user.rol != null);
-
-        // Retornar una nueva instancia de HttpResponse con el cuerpo filtrado
+        console.log("Respuesta completa de Supabase:", response);
+        const filteredUser = response.body?.find(user => user.user === username && user.rol != null);
+        console.log("Usuario filtrado:", filteredUser);
+  
         return new HttpResponse({
-          body: filteredBody,   // El nuevo array filtrado
-          headers: response.headers,  // Copia los headers originales
-          status: response.status,    // Copia el status original
-          statusText: response.statusText,  // Copia el statusText original
+          body: filteredUser,
+          headers: response.headers,
+          status: response.status,
+          statusText: response.statusText,
         });
       })
     );
