@@ -10,6 +10,15 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./pages/auth/auth.module').then( m => m.AuthPageModule)
   },
+
+  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin/admin.module').then( m => m.AdminPageModule)
+  },
+  {
+    path: 'sign-up',
+    loadChildren: () => import('./pages/auth/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+  },
   {
     path: 'crear-pedido',
     loadChildren: () => import('./pages/crear-pedido/crear-pedido/crear-pedido.module').then( m => m.CrearPedidoPageModule)

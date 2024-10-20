@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 import { Cliente } from 'src/app/Models/cliente';
 import { ClienteService } from 'src/app/services/clientes/cliente.service';
 import { DetallePedido } from 'src/app/Models/detalle_pedido';
-
+import { User } from 'src/app/Models/user';
+import * as CryptoJS from 'crypto-js';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -20,32 +22,45 @@ import { DetallePedido } from 'src/app/Models/detalle_pedido';
 })
 export class HomePage {
 
-  mensaje = ""
-  name = ""
+  mensaje = "";
+  name = "";
   productos: Producto[] = [];
   pedidos: Pedido[] = [];
+  userInfo: User | null = null;
   alertButtons = ['Ok'];
   cliente : Cliente[]= [];
   detalle: DetallePedido[] = [];
 
  
 
+
   constructor( private _serviceProducto:ProductoService,
     private _servicePedido: PedidoService,
     private router: Router,
     private _serviceCliente: ClienteService,) {}
-  ngOnInit(){
-    
-    this.obtenerPedido();
-    //this.obtenerCliente();
-    
-    
 
-  } 
+  async ngOnInit() {
+    await this.getUserInfo();
+    console.log("Información del usuario en ngOnInit:", JSON.stringify(this.userInfo, null, 2));
+    this.obtenerPedido();
+  }
+
+
+  async ionViewWillEnter() {
+    // Asegurarse de actualizar la información del usuario cada vez que se entra a la vista
+    await this.getUserInfo();
+    console.log("Información del usuario en ionViewWillEnter:", JSON.stringify(this.userInfo, null, 2));
+  }
+
 
  /* async obtenerProductos(){
     const response: HttpResponse<Producto[]>  = await firstValueFrom(this._serviceProducto.obtener_productos());
     console.log(response)
+  async obtenerProductos() {
+    const response: HttpResponse<Producto[]> = await firstValueFrom(
+      this._serviceProducto.obtener_productos()
+    );
+    console.log(response);
     this.productos = response.body || [];
   }*/
 
@@ -93,6 +108,29 @@ export class HomePage {
   }*/
   
 
+  async obtenerPedido() {
+    const response: HttpResponse<Pedido[]> = await firstValueFrom(
+      this._servicePedido.obtener_pedido()
+    );
+    console.log(response);
+    this.pedidos = response.body || [];
+  }
+
+  async getUserInfo() {
+    const { value } = await Preferences.get({ key: 'userData' });
+    console.log("Valor recuperado de userData:", value); // Verificar el valor recuperado
+  
+    if (value) {
+      try {
+        const bytes = CryptoJS.AES.decrypt(value, environment.secretKey);
+        const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+        this.userInfo = JSON.parse(decryptedData);
+        console.log("userInfo asignado después de desencriptar:", JSON.stringify(this.userInfo, null, 2)); // Mostrar toda la estructura
+      } catch (error) {
+        console.error("Error parsing userData:", error);
+      }
+    }
+  }
 
   async logout() {
     // Limpiar los datos del usuario
@@ -111,5 +149,12 @@ export class HomePage {
   }
 
 
+  isAdmin(): boolean {
+    console.log("Verificando rol de usuario:", this.userInfo?.rol);
+    return this.userInfo?.rol?.id === 1;
+  }
 
+  goToAdmin() {
+    this.router.navigate(['/admin']);
+  }
 }

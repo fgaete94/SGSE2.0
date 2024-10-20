@@ -1,9 +1,17 @@
-.logo-icon{
-    font-size: 80px;
-    margin-top: 40px;
-    margin-left: 22px;
+.logo-container {
+    display: flex;
     align-items: center;
-}
-h1{
-    margin-top: 0px;
-}
+    justify-content: center;
+    flex-direction: column; /* Coloca la imagen encima del texto */
+    text-align: center;
+  }
+  
+  .logo-icon {
+    width: 100px; /* Ajusta según sea necesario */
+    height: auto;
+    margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+  }
+  
+  h1 {
+    margin: 0; /* Elimina margen adicional del título */
+  }

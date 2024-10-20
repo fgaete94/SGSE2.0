@@ -1,22 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
 
-import { AuthPageRoutingModule } from './auth-routing.module';
-
-import { AuthPage } from './auth.page';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { AuthPageRoutingModule } from './auth-routing.module'; // Importa correctamente el módulo de rutas
+import { AuthPage } from './auth.page'; // Importa AuthPage
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AuthPageRoutingModule,
-    SharedModule
+    AuthPageRoutingModule, // Asegúrate de que está agregado aquí
   ],
-  declarations: [AuthPage]
+  declarations: [AuthPage], // Declara AuthPage aquí
 })
 export class AuthPageModule {}
