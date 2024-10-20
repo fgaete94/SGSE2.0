@@ -7,9 +7,13 @@ import { Pedido } from 'src/app/Models/pedido';
 import { PedidoService } from 'src/app/services/pedidos/pedido.service';
 import { Preferences } from '@capacitor/preferences';
 import { Router } from '@angular/router';
+import { Cliente } from 'src/app/Models/cliente';
+import { ClienteService } from 'src/app/services/clientes/cliente.service';
+import { DetallePedido } from 'src/app/Models/detalle_pedido';
 import { User } from 'src/app/Models/user';
 import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-home',
@@ -24,19 +28,23 @@ export class HomePage {
   pedidos: Pedido[] = [];
   userInfo: User | null = null;
   alertButtons = ['Ok'];
+  cliente : Cliente[]= [];
+  detalle: DetallePedido[] = [];
 
-  constructor(
-    private _serviceProducto: ProductoService,
+ 
+
+
+  constructor( private _serviceProducto:ProductoService,
     private _servicePedido: PedidoService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private _serviceCliente: ClienteService,) {}
 
   async ngOnInit() {
     await this.getUserInfo();
     console.log("Información del usuario en ngOnInit:", JSON.stringify(this.userInfo, null, 2));
-    this.obtenerProductos();
     this.obtenerPedido();
   }
+
 
   async ionViewWillEnter() {
     // Asegurarse de actualizar la información del usuario cada vez que se entra a la vista
@@ -44,13 +52,61 @@ export class HomePage {
     console.log("Información del usuario en ionViewWillEnter:", JSON.stringify(this.userInfo, null, 2));
   }
 
+
+ /* async obtenerProductos(){
+    const response: HttpResponse<Producto[]>  = await firstValueFrom(this._serviceProducto.obtener_productos());
+    console.log(response)
   async obtenerProductos() {
     const response: HttpResponse<Producto[]> = await firstValueFrom(
       this._serviceProducto.obtener_productos()
     );
     console.log(response);
     this.productos = response.body || [];
+  }*/
+
+  async obtenerPedido() {
+    try {
+      // Obtener la lista de pedidos
+      const response: HttpResponse<Pedido[]> = await firstValueFrom(this._servicePedido.obtener_pedido());
+      console.log(response);
+      this.pedidos = response.body || [];
+  
+      /* Obtener información del detalle
+      for (const pedido of this.pedidos) {
+        const detalleID: number = + pedido.detalle_pedido;
+        const detalleResponse: HttpResponse<DetallePedido[]> = await firstValueFrom(this._servicePedido.obtener_detalle_pedido(detalleID));
+        this.detalle = detalleResponse.body || [];
+        console.log(this.detalle);
+
+        // Obtener información del producto
+        const productoID: number = +this.detalle[0].producto;
+        const productoResponse: HttpResponse<Producto[]> = await firstValueFrom(this._serviceProducto.obtener_productos(productoID));
+        this.productos = productoResponse.body || [];
+
+        // obtener información del cliente  
+        const clienteResponse: HttpResponse<Cliente[]> = await firstValueFrom(this._serviceCliente.obtener_cliente());
+        this.cliente = clienteResponse.body || [];
+      }*/
+
+
+    } catch (error) {
+      console.error('Error al obtener los pedidos:', error);
+      // Manejo de errores aquí
+    }
   }
+
+ /* async obtenerCliente(){
+    const response: HttpResponse<Cliente[]> = await firstValueFrom(this._serviceCliente.obtener_cliente());
+    console.log(response);
+    this.cliente = response.body || [];
+  }
+
+  async obtenenerDetallePedido(){
+    const response: HttpResponse<Cliente[]> = await firstValueFrom(this._serviceCliente.obtener_cliente());
+    console.log(response);
+    this.cliente = response.body || [];
+  }*/
+  
 
   async obtenerPedido() {
     const response: HttpResponse<Pedido[]> = await firstValueFrom(
@@ -83,6 +139,15 @@ export class HomePage {
     // Redirigir a la página de inicio de sesión
     this.router.navigate(['/auth']);
   }
+
+  generarRuta(){
+    this.router.navigate(['/ruta']);
+  }
+
+  modificarPedido(){
+    this.router.navigate(['/modificar-pedido']);
+  }
+
 
   isAdmin(): boolean {
     console.log("Verificando rol de usuario:", this.userInfo?.rol);

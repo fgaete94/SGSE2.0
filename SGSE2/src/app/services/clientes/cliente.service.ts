@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ApiConfigService } from '../api-config/api-config.service';
-import { Producto } from 'src/app/Models/producto';
+import { Cliente } from 'src/app/Models/cliente';
 import { HttpParams, HttpResponse } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductoService {
+export class ClienteService {
 
-  path = "Producto"
+  path2 = "Cliente"
 
-  constructor(private apiService:ApiConfigService) { }
+  constructor(private _apiService : ApiConfigService) { }
 
-  obtener_productos(): Observable<HttpResponse<Producto[]>> {
+  obtener_cliente(): Observable<HttpResponse<Cliente[]>> {
     const params = new HttpParams().set('select',"*");
-    return this.apiService.get<Producto[]>(this.path, params).pipe(
+    return this._apiService.get<Cliente[]>(this.path2, params).pipe(
       map(response => {
         console.log(response)
-        const filteredBody = response.body?.filter(product => product.deleted_at == null );
+        const filteredBody = response.body?.filter(cliente => cliente.nombre != null);
 
         // Retornar una nueva instancia de HttpResponse con el cuerpo filtrado
         return new HttpResponse({
