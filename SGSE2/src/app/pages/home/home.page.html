@@ -75,6 +75,7 @@
                       <p >{{pedido.cantidad}}</p>
                     </ion-label>
                   </ion-item>
+
                 </ion-list>
               </ion-content>
             </ng-template>
@@ -90,6 +91,10 @@
   Generar Ruta
   <ion-icon slot="end" name="location-outline"></ion-icon>
 </ion-button>
+<ion-button (click)="modificarPedido()" expand="block" mode="ios">
+  Editar Pedido
+  <ion-icon slot="end" name="create-outline"></ion-icon>
+  </ion-button>
 <ion-button (click)="logout()" expand="block" mode="ios">
   Salir
   <ion-icon slot="end" name="log-out-outline"></ion-icon>

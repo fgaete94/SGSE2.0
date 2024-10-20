@@ -8,11 +8,10 @@ export interface Pedido{
     id: number;
     direccion: string;
     comuna: Comuna;
-    cliente: Cliente ;
-    repartidor: User;
-    detalle_pedido: DetallePedido;
+    cliente: string ;
+    repartidor: string;
     n_pedido: number;
-    producto: Producto;
+    producto: string;
     cantidad: number;
     tel_contacto: number;
 

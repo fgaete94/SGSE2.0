@@ -13,12 +13,12 @@ export class ProductoService {
 
   constructor(private apiService:ApiConfigService) { }
 
-  obtener_productos(sku: number): Observable<HttpResponse<Producto[]>> {
+  obtener_productos(): Observable<HttpResponse<Producto[]>> {
     const params = new HttpParams().set('select',"*");
     return this.apiService.get<Producto[]>(this.path, params).pipe(
       map(response => {
         console.log(response)
-        const filteredBody = response.body?.filter(product => product.deleted_at == null && product.sku == sku);
+        const filteredBody = response.body?.filter(product => product.deleted_at == null );
 
         // Retornar una nueva instancia de HttpResponse con el cuerpo filtrado
         return new HttpResponse({

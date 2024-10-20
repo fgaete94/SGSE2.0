@@ -106,6 +106,10 @@ export class HomePage {
     this.router.navigate(['/ruta']);
   }
 
+  modificarPedido(){
+    this.router.navigate(['/modificar-pedido']);
+  }
+
 
 
 }

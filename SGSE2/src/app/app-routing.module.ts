@@ -19,10 +19,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/ruta/ruta/ruta.module').then( m => m.RutaPageModule)
   },
   {
+    path: 'modificar-pedido',
+    loadChildren: () => import('./pages/modificar-pedido/modificar-pedido.module').then( m => m.ModificarPedidoPageModule)
+  },
+  {
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full'
   },
+
 
 
 ];
