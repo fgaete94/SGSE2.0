@@ -56,7 +56,7 @@ export class HomePage {
       console.log(response);
       this.pedidos = response.body || [];
   
-      // Obtener información del detalle
+      /* Obtener información del detalle
       for (const pedido of this.pedidos) {
         const detalleID: number = + pedido.detalle_pedido;
         const detalleResponse: HttpResponse<DetallePedido[]> = await firstValueFrom(this._servicePedido.obtener_detalle_pedido(detalleID));
@@ -71,11 +71,11 @@ export class HomePage {
         // obtener información del cliente  
         const clienteResponse: HttpResponse<Cliente[]> = await firstValueFrom(this._serviceCliente.obtener_cliente());
         this.cliente = clienteResponse.body || [];
-      }
+      }*/
 
 
     } catch (error) {
-      console.error('Error al obtener los pedidos o los clientes:', error);
+      console.error('Error al obtener los pedidos:', error);
       // Manejo de errores aquí
     }
   }
@@ -84,13 +84,13 @@ export class HomePage {
     const response: HttpResponse<Cliente[]> = await firstValueFrom(this._serviceCliente.obtener_cliente());
     console.log(response);
     this.cliente = response.body || [];
-  }*/
+  }
 
   async obtenenerDetallePedido(){
     const response: HttpResponse<Cliente[]> = await firstValueFrom(this._serviceCliente.obtener_cliente());
     console.log(response);
     this.cliente = response.body || [];
-  }
+  }*/
   
 
 
@@ -100,6 +100,10 @@ export class HomePage {
 
     // Redirigir a la página de inicio de sesión
     this.router.navigate(['/auth']);
+  }
+
+  generarRuta(){
+    this.router.navigate(['/ruta']);
   }
 
 

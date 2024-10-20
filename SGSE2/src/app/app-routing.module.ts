@@ -11,14 +11,19 @@ const routes: Routes = [
     loadChildren: () => import('./pages/auth/auth.module').then( m => m.AuthPageModule)
   },
   {
+    path: 'crear-pedido',
+    loadChildren: () => import('./pages/crear-pedido/crear-pedido/crear-pedido.module').then( m => m.CrearPedidoPageModule)
+  },
+  {
+    path: 'ruta',
+    loadChildren: () => import('./pages/ruta/ruta/ruta.module').then( m => m.RutaPageModule)
+  },
+  {
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full'
   },
-  {
-    path: 'crear-pedido',
-    loadChildren: () => import('./pages/crear-pedido/crear-pedido/crear-pedido.module').then( m => m.CrearPedidoPageModule)
-  },
+
 
 ];
 
