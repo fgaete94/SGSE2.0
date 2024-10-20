@@ -16,11 +16,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/admin/admin/admin.module').then( m => m.AdminPageModule)
   },
   {
+    path: 'sign-up',
+    loadChildren: () => import('./pages/auth/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+  },
+  {
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full'
   },
-
 
 ];
 

@@ -1,10 +1,12 @@
-import { Rol } from "./rol";
+import { Rol } from './rol'; // Importa la interfaz Rol
 
-export interface User{
-    id: number;
-    nombre: string;
-    user: string;
-    password: string;
-    rol: Rol;
-    telefono: number;
+export interface User {
+  id: number;
+  nombre: string;
+  apellido: string;
+  user: string; // user
+  password: string;
+  rol: Rol; // La propiedad rol es del tipo Rol, no string
+  telefono: number;
+  correo: string;
 }
