@@ -1,3 +1,4 @@
+// sign-up.page.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SignUpService } from 'src/app/services/sign-up-service/sign-up-service';
@@ -11,12 +12,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class SignUpPage {
   nombre: string = '';
+  apellido: string = '';
+  user: string = '';
   correo: string = '';
   telefono: string = '';
   password: string = '';
   confirmPassword: string = '';
   errorMessage: string = '';
-
   constructor(
     private signUpService: SignUpService,
     private router: Router
@@ -30,6 +32,8 @@ export class SignUpPage {
 
     const newUser = {
       nombre: this.nombre,
+      apellido: this.apellido,
+      user: this.user, // Asignar el nombre de usuario
       correo: this.correo,
       telefono: parseInt(this.telefono, 10),
       password: this.password,

@@ -8,8 +8,8 @@
   <div class="d-flex-center">
     <ion-card color="light">
       <ion-card-header class="logo-container">
-        <img src="assets/images/LogoSGSE.webp" alt="Logo SGSE" class="logo-icon">
-        <ion-text color="primary">
+        <img src="assets/images/LogoSGSE.webp" alt="Logo SGSE" class="logo-icon" style="width: 300px; height: auto; margin: 0 auto; display: block;">
+        <ion-text color="primary" style="text-align: center;">
           <h1><strong>SGSE</strong></h1>
         </ion-text>
       </ion-card-header>
@@ -27,20 +27,24 @@
           </ion-item>
 
           <ion-item color="light">
-            <ion-input labelPlacement="floating" [(ngModel)]="password" type="password" placeholder="Ingrese su contraseña">
+            <ion-input labelPlacement="floating" [type]="passwordType" [(ngModel)]="password" placeholder="Ingrese su contraseña">
               <div slot="label">Contraseña <ion-text color="danger">(Requerido)</ion-text></div>
             </ion-input>
+            <ion-icon slot="end" [name]="passwordIcon" (click)="togglePasswordVisibility()"></ion-icon>
           </ion-item>
         </ion-list>
+
+        <div class="button-container" style="margin-top: 20px;">
+          <ion-button (click)="login(user, password)" expand="block" mode="ios" class="submit">
+            Ingresar
+            <ion-icon slot="end" name="log-in-outline"></ion-icon>
+          </ion-button>
+          <ion-button (click)="goToSignUp()" expand="block" mode="ios" fill="outline" color="primary" class="signup">
+            Registrarme
+            <ion-icon slot="end" name="document-text-outline"></ion-icon>
+          </ion-button>
+        </div>
       </ion-card-content>
     </ion-card>
   </div>
-  <ion-button (click)="login(user, password)" expand="block" mode="ios" class="submit">
-    Ingresar
-    <ion-icon slot="end" name="log-in-outline"></ion-icon>
-  </ion-button>
-  <ion-button (click)="goToSignUp()" expand="block" mode="ios" fill="outline" color="primary" class="signup">
-    Registrarme
-    <ion-icon slot="end" name="document-text-outline"></ion-icon>
-  </ion-button>
 </ion-content>

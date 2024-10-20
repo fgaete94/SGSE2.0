@@ -18,8 +18,28 @@
             <ion-input 
               labelPlacement="floating" 
               [(ngModel)]="nombre" 
-              placeholder="Ingrese su nombre completo">
-              <div slot="label">Nombre Completo <ion-text color="danger">(Requerido)</ion-text></div>
+              placeholder="Ingrese su nombre">
+              <div slot="label">Nombre <ion-text color="danger">(Requerido)</ion-text></div>
+            </ion-input>
+          </ion-item>
+
+          <!-- Apellido -->
+          <ion-item color="light">
+            <ion-input 
+              labelPlacement="floating" 
+              [(ngModel)]="apellido" 
+              placeholder="Ingrese su apellido">
+              <div slot="label">Apellido <ion-text color="danger">(Requerido)</ion-text></div>
+            </ion-input>
+          </ion-item>
+
+          <!-- Nombre de Usuario -->
+          <ion-item color="light">
+            <ion-input 
+              labelPlacement="floating" 
+              [(ngModel)]="user" 
+              placeholder="Ingrese su nombre de usuario">
+              <div slot="label">Nombre de Usuario <ion-text color="danger">(Requerido)</ion-text></div>
             </ion-input>
           </ion-item>
 

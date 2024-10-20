@@ -19,7 +19,8 @@ export class AuthPage implements OnInit {
   user = "";
   password = "";
   errorMessage: string = '';
-
+  passwordType: string = 'password';
+  passwordIcon: string = 'eye-off';
   private sessionDuration = 5 * 60 * 1000;
 
   userInfo: User | null = null;
@@ -74,5 +75,15 @@ export class AuthPage implements OnInit {
 
   goToSignUp() {
     this.router.navigate(['/sign-up']);
+  }
+  
+  togglePasswordVisibility() {
+    if (this.passwordType === 'password') {
+      this.passwordType = 'text';
+      this.passwordIcon = 'eye';
+    } else {
+      this.passwordType = 'password';
+      this.passwordIcon = 'eye-off';
+    }
   }
 }
