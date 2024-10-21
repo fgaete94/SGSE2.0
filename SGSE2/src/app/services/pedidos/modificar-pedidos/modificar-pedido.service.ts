@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ApiConfigService } from '../../api-config/api-config.service';
-import { HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Pedido } from 'src/app/Models/pedido';
 import { Comuna } from 'src/app/Models/comuna';
 import { actualizarPedido } from 'src/app/Models/actualizar_pedido';
+import { AgregarPedido } from 'src/app/Models/agregar_pedido';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,10 @@ export class ModificarPedidoService {
   eliminarPedido(n_pedido: number) {
     const params = new HttpParams().set('n_pedido', `eq.${n_pedido}`);
     return this._apiService.delete<Pedido>(this.path, params);
+  }
+
+  agregarPedido(nuevoPedido: AgregarPedido): Observable<HttpResponse<AgregarPedido>> {
+    return this._apiService.post<AgregarPedido>(this.path, nuevoPedido);
   }
   
 

@@ -91,7 +91,7 @@
   Generar Ruta
   <ion-icon slot="end" name="location-outline"></ion-icon>
 </ion-button>
-<ion-button  (click)="modificarPedido()" expand="block" mode="ios">
+<ion-button *ngIf="isAdmin()" (click)="modificarPedido()" expand="block" mode="ios">
   Editar Pedido
   <ion-icon slot="end" name="create-outline"></ion-icon>
   </ion-button>
@@ -102,9 +102,9 @@
 </ion-button>
 
   
-  <!--<ion-button *ngIf="isAdmin()"  expand="block" mode="ios" (click)="goToAdmin()">
-    Opciones de Administrador
-    <ion-icon slot="end" name="settings-outline"></ion-icon>
-  </ion-button>-->
+<!--<ion-button *ngIf="isAdmin()" expand="block" mode="ios" (click)="modificarPedido()">
+  Opciones de Administrador
+  <ion-icon slot="end" name="settings-outline"></ion-icon>
+</ion-button>-->
   
 </ion-content>
