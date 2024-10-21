@@ -24,6 +24,8 @@ export class AuthPage implements OnInit {
   passwordIcon: string = 'eye-off';
   private sessionDuration = 5 * 60 * 1000;
 
+  username = "";
+
   userInfo: User | null = null;
 
   constructor(private router: Router, private _authService: AuthServiceService, private apiService: ApiConfigService) {}
@@ -47,6 +49,12 @@ export class AuthPage implements OnInit {
       return null;
     }
   }
+
+  async obtenerUsuario(username: string): Promise<User | null> {
+    const response: HttpResponse<User | null> = await firstValueFrom(this._authService.obtener_usuario(username));
+    console.log(response);
+    return response.body ? response.body : null;
+}
 
   async login(username: string, password: string) {
     try {
@@ -79,6 +87,7 @@ export class AuthPage implements OnInit {
         console.error(this.errorMessage, error);
     }
   }
+  
 
   goToSignUp() {
     this.router.navigate(['/sign-up']);
