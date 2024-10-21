@@ -27,6 +27,15 @@ export class AuthServiceService {
     return false;
   }
 
+  async isAuthenticated(): Promise<boolean> {
+    const userData = await this.getDecryptedUserData();
+    if (userData && userData.expiration && Date.now() < userData.expiration) {
+      return true;
+    }
+    await this.logout();
+    return false;
+  }
+
   async getDecryptedUserData() {
     const { value } = await Preferences.get({ key: 'userData' });
     if (value) {
@@ -49,7 +58,13 @@ export class AuthServiceService {
 
   obtener_usuario(username: string): Observable<HttpResponse<User | null>> {
     const params = new HttpParams().set('select', '*');
-    return this.http.get<User[]>(`${this.apiUrl}/${this.path}`, { params, observe: 'response' }).pipe(
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'apiKey': environment.apiKeySupabase,
+      'Authorization': `Bearer ${environment.apiKeySupabase}`,
+    });
+
+    return this.http.get<User[]>(`${this.apiUrl}/${this.path}`, { params, observe: 'response', headers }).pipe(
       map((response) => {
         console.log(response);
         const filteredBody = response.body?.find((user) => user.user === username && user.rol != null);
@@ -76,4 +91,3 @@ export class AuthServiceService {
     });
   }
 }
-      

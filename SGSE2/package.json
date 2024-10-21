@@ -31,7 +31,10 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": [
+              "src/global.scss",
+              "src/theme/variables.scss"
+            ],
             "scripts": [],
             "allowedCommonJsDependencies": [
               "ws",
@@ -115,7 +118,10 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": [
+              "src/global.scss",
+              "src/theme/variables.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -150,5 +156,22 @@
     "@ionic/angular-toolkit:page": {
       "styleext": "scss"
     }
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^18.2.9",
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^22.7.7"
+  },
+  "dependencies": {
+    "@angular/cli": "^18.2.9",
+    "@angular/common": "^18.2.8",
+    "@angular/core": "^18.2.8",
+    "@angular/forms": "^18.2.8",
+    "@angular/platform-browser-dynamic": "^18.2.8",
+    "@angular/router": "^18.2.8",
+    "@capacitor/preferences": "^6.0.2",
+    "@ionic/angular": "^8.3.3",
+    "@ionic/angular-toolkit": "^12.1.1",
+    "crypto-js": "^4.2.0"
   }
 }

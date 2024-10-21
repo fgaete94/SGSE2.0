@@ -19,7 +19,7 @@
               labelPlacement="floating" 
               [(ngModel)]="nombre" 
               placeholder="Ingrese su nombre">
-              <div slot="label">Nombre <ion-text color="danger">(Requerido)</ion-text></div>
+              <div slot="label">Nombre <ion-text color="danger" *ngIf="errorFields['nombre']">{{ errorFields['nombre'] }}</ion-text></div>
             </ion-input>
           </ion-item>
 
@@ -29,7 +29,7 @@
               labelPlacement="floating" 
               [(ngModel)]="apellido" 
               placeholder="Ingrese su apellido">
-              <div slot="label">Apellido <ion-text color="danger">(Requerido)</ion-text></div>
+              <div slot="label">Apellido <ion-text color="danger" *ngIf="errorFields['apellido']">{{ errorFields['apellido'] }}</ion-text></div>
             </ion-input>
           </ion-item>
 
@@ -39,7 +39,7 @@
               labelPlacement="floating" 
               [(ngModel)]="user" 
               placeholder="Ingrese su nombre de usuario">
-              <div slot="label">Nombre de Usuario <ion-text color="danger">(Requerido)</ion-text></div>
+              <div slot="label">Nombre de Usuario <ion-text color="danger" *ngIf="errorFields['user']">{{ errorFields['user'] }}</ion-text></div>
             </ion-input>
           </ion-item>
 
@@ -50,7 +50,7 @@
               [(ngModel)]="correo" 
               type="email" 
               placeholder="Ingrese su correo electrónico">
-              <div slot="label">Correo Electrónico <ion-text color="danger">(Requerido)</ion-text></div>
+              <div slot="label">Correo Electrónico <ion-text color="danger" *ngIf="errorFields['correo']">{{ errorFields['correo'] }}</ion-text></div>
             </ion-input>
           </ion-item>
 
@@ -61,7 +61,7 @@
               [(ngModel)]="telefono" 
               type="tel" 
               placeholder="Ingrese su número de teléfono">
-              <div slot="label">Número de Teléfono <ion-text color="danger">(Requerido)</ion-text></div>
+              <div slot="label">Número de Teléfono <ion-text color="danger" *ngIf="errorFields['telefono']">{{ errorFields['telefono'] }}</ion-text></div>
             </ion-input>
           </ion-item>
 
@@ -72,7 +72,7 @@
               [(ngModel)]="password" 
               type="password" 
               placeholder="Ingrese su contraseña">
-              <div slot="label">Contraseña <ion-text color="danger">(Requerido)</ion-text></div>
+              <div slot="label">Contraseña <ion-text color="danger" *ngIf="errorFields['password']">{{ errorFields['password'] }}</ion-text></div>
             </ion-input>
           </ion-item>
 
@@ -83,7 +83,7 @@
               [(ngModel)]="confirmPassword" 
               type="password" 
               placeholder="Confirme su contraseña">
-              <div slot="label">Confirme Contraseña <ion-text color="danger">(Requerido)</ion-text></div>
+              <div slot="label">Confirme Contraseña <ion-text color="danger" *ngIf="errorFields['confirmPassword']">{{ errorFields['confirmPassword'] }}</ion-text></div>
             </ion-input>
           </ion-item>
         </ion-list>
@@ -94,8 +94,7 @@
             expand="block" 
             color="primary" 
             (click)="signUp()" 
-            class="signup-button" 
-            [disabled]="password !== confirmPassword">
+            class="signup-button">
             <ion-icon name="document-text-outline"></ion-icon>
             Registrarme
           </ion-button>

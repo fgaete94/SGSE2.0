@@ -1,43 +1,46 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'auth',
-    loadChildren: () => import('./pages/auth/auth.module').then( m => m.AuthPageModule)
+    loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthPageModule)
   },
-
   {
     path: 'sign-up',
-    loadChildren: () => import('./pages/auth/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+    loadChildren: () => import('./pages/auth/sign-up/sign-up.module').then(m => m.SignUpPageModule)
   },
   {
     path: 'crear-pedido',
-    loadChildren: () => import('./pages/crear-pedido/crear-pedido/crear-pedido.module').then( m => m.CrearPedidoPageModule)
+    loadChildren: () => import('./pages/crear-pedido/crear-pedido/crear-pedido.module').then(m => m.CrearPedidoPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'ruta',
-    loadChildren: () => import('./pages/ruta/ruta/ruta.module').then( m => m.RutaPageModule)
+    loadChildren: () => import('./pages/ruta/ruta/ruta.module').then(m => m.RutaPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'modificar-pedido',
-    loadChildren: () => import('./pages/modificar-pedido/modificar-pedido.module').then( m => m.ModificarPedidoPageModule)
+    loadChildren: () => import('./pages/modificar-pedido/modificar-pedido.module').then(m => m.ModificarPedidoPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'agregar-pedido',
-    loadChildren: () => import('./pages/agregar-pedido/agregar-pedido.module').then( m => m.AgregarPedidoPageModule)
+    loadChildren: () => import('./pages/agregar-pedido/agregar-pedido.module').then(m => m.AgregarPedidoPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full'
-  },
-
-
+  }
 ];
 
 @NgModule({
