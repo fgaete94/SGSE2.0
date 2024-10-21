@@ -146,6 +146,9 @@ export class HomePage {
   editarPedido(){
     this.router.navigate(['/agregar-pedido']);
   }
+  agregarCliente(){
+    this.router.navigate(['/crear-cliente']);
+  }
 
 
   isAdmin(): boolean {

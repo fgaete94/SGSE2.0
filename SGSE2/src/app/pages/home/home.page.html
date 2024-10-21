@@ -100,6 +100,10 @@
     Agregar Pedido
     <ion-icon slot="end" name="duplicate-outline"></ion-icon>
   </ion-button>
+  <ion-button *ngIf="isAdmin()" (click)="agregarCliente()" expand="block" mode="ios">
+    Agregar Cliente
+    <ion-icon slot="end" name="duplicate-outline"></ion-icon>
+  </ion-button>
 </div>
   
 

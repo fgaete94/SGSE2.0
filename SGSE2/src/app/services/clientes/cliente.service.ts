@@ -3,6 +3,7 @@ import { ApiConfigService } from '../api-config/api-config.service';
 import { Cliente } from 'src/app/Models/cliente';
 import { HttpParams, HttpResponse } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
+import { agregarCliente } from 'src/app/Models/agregar_cliente';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,9 @@ export class ClienteService {
         });
       })
     );
+  }
+
+  agregarCliente(nuevocliente: agregarCliente): Observable<HttpResponse<agregarCliente>> {
+    return this._apiService.post<agregarCliente>(this.path2, nuevocliente);
   }
 }
