@@ -1,6 +1,5 @@
 import { Cliente } from "./cliente";
 import { Comuna } from "./comuna";
-import { DetallePedido } from "./detalle_pedido";
 import { Producto } from "./producto";
 import { User } from "./user";
 

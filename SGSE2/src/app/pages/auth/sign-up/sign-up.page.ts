@@ -24,7 +24,7 @@ export class SignUpPage {
     private router: Router
   ) {}
 
-  async signUp() {
+  async signUp() { // agregar funcion para encrypotar contraseña con crypro-js
     if (this.password !== this.confirmPassword) {
       this.errorMessage = 'Las contraseñas no coinciden.';
       return;

@@ -55,16 +55,6 @@ export class AuthServiceService {
         const filteredBody = response.body?.find((user) => user.user === username && user.rol != null);
         return new HttpResponse({
           body: filteredBody || null, // Devolvemos el usuario encontrado o null
-    const params = new HttpParams().set('select', '*, rol(*)'); // Incluye la relación del rol
-  
-    return this.apiService.get<User[]>(this.path, params).pipe(
-      map(response => {
-        console.log("Respuesta completa de Supabase:", response);
-        const filteredUser = response.body?.find(user => user.user === username && user.rol != null);
-        console.log("Usuario filtrado:", filteredUser);
-  
-        return new HttpResponse({
-          body: filteredUser,
           headers: response.headers,
           status: response.status,
           statusText: response.statusText,
@@ -86,3 +76,4 @@ export class AuthServiceService {
     });
   }
 }
+      

@@ -78,6 +78,8 @@ export class ModificarPedidoPage implements OnInit {
     }
   }
 
+  // agregar funcion de agregar pedido (julio)
+
 
   volver() {
     this.router.navigate(['/home']);

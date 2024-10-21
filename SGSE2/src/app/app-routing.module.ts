@@ -12,10 +12,6 @@ const routes: Routes = [
   },
 
   {
-    path: 'admin',
-    loadChildren: () => import('./pages/admin/admin/admin.module').then( m => m.AdminPageModule)
-  },
-  {
     path: 'sign-up',
     loadChildren: () => import('./pages/auth/sign-up/sign-up.module').then( m => m.SignUpPageModule)
   },
@@ -32,11 +28,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/modificar-pedido/modificar-pedido.module').then( m => m.ModificarPedidoPageModule)
   },
   {
+    path: 'agregar-pedido',
+    loadChildren: () => import('./pages/agregar-pedido/agregar-pedido.module').then( m => m.AgregarPedidoPageModule)
+  },
+  {
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full'
   },
-
 
 
 ];

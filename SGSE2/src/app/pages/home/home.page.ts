@@ -108,13 +108,6 @@ export class HomePage {
   }*/
   
 
-  async obtenerPedido() {
-    const response: HttpResponse<Pedido[]> = await firstValueFrom(
-      this._servicePedido.obtener_pedido()
-    );
-    console.log(response);
-    this.pedidos = response.body || [];
-  }
 
   async getUserInfo() {
     const { value } = await Preferences.get({ key: 'userData' });
@@ -154,7 +147,5 @@ export class HomePage {
     return this.userInfo?.rol?.id === 1;
   }
 
-  goToAdmin() {
-    this.router.navigate(['/admin']);
-  }
+
 }
