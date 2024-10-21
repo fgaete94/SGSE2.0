@@ -20,11 +20,38 @@ export class AuthPage implements OnInit {
   passwordIcon: string = 'eye-off';
   private sessionDuration = 5 * 60 * 1000;
 
+  username = "";
+
   userInfo: User | null = null;
 
   constructor(private router: Router, private _authService: AuthServiceService) {}
 
   ngOnInit() {}
+
+
+ /* async obtenerUser(username: string): Promise<User | null> {
+    try {
+      const params = new HttpParams().set('user', `eq.${username}`);
+      const response: HttpResponse<User[]> = await firstValueFrom(
+        this.apiService.get<User[]>('Usuario', params)
+      );
+      
+      if (response.body && response.body.length > 0) {
+        return response.body[0];
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error("Error al obtener el usuario:", error);
+      return null;
+    }
+  }
+
+  async obtenerUsuario(username: string): Promise<User | null> {
+    const response: HttpResponse<User | null> = await firstValueFrom(this._authService.obtener_usuario(username));
+    console.log(response);
+    return response.body ? response.body : null;*/
+}
 
   async login(username: string, password: string) {
     try {
@@ -59,6 +86,7 @@ export class AuthPage implements OnInit {
       console.error(this.errorMessage, error);
     }
   }
+  
 
   goToSignUp() {
     this.router.navigate(['/sign-up']);

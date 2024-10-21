@@ -41,6 +41,7 @@ export class HomePage {
 
   async ngOnInit() {
     await this.getUserInfo();
+    await this.verificarRolUsuario();  // Verifica el rol del usuario al iniciar la vista
     console.log("Información del usuario en ngOnInit:", JSON.stringify(this.userInfo, null, 2));
     this.obtenerPedido();
   }
@@ -49,6 +50,7 @@ export class HomePage {
   async ionViewWillEnter() {
     // Asegurarse de actualizar la información del usuario cada vez que se entra a la vista
     await this.getUserInfo();
+    await this.verificarRolUsuario();
     console.log("Información del usuario en ionViewWillEnter:", JSON.stringify(this.userInfo, null, 2));
   }
 
@@ -109,21 +111,21 @@ export class HomePage {
   
 
 
-  async getUserInfo() {
-    const { value } = await Preferences.get({ key: 'userData' });
-    console.log("Valor recuperado de userData:", value); // Verificar el valor recuperado
-  
-    if (value) {
-      try {
-        const bytes = CryptoJS.AES.decrypt(value, environment.secretKey);
-        const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
-        this.userInfo = JSON.parse(decryptedData);
-        console.log("userInfo asignado después de desencriptar:", JSON.stringify(this.userInfo, null, 2)); // Mostrar toda la estructura
-      } catch (error) {
-        console.error("Error parsing userData:", error);
+    async getUserInfo() {
+      const { value } = await Preferences.get({ key: 'userData' });
+      console.log("Valor recuperado de userData:", value); // Verificar el valor recuperado
+    
+      if (value) {
+        try {
+          const bytes = CryptoJS.AES.decrypt(value, environment.secretKey);
+          const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+          this.userInfo = JSON.parse(decryptedData);
+          console.log("userInfo asignado después de desencriptar:", JSON.stringify(this.userInfo, null, 2)); // Mostrar toda la estructura
+        } catch (error) {
+          console.error("Error parsing userData:", error);
+        }
       }
     }
-  }
 
   async logout() {
     // Limpiar los datos del usuario
@@ -140,11 +142,39 @@ export class HomePage {
   modificarPedido(){
     this.router.navigate(['/modificar-pedido']);
   }
+  
+  editarPedido(){
+    this.router.navigate(['/agregar-pedido']);
+  }
 
 
   isAdmin(): boolean {
     console.log("Verificando rol de usuario:", this.userInfo?.rol);
-    return this.userInfo?.rol?.id === 1;
+    return Number(this.userInfo?.rol) === 1; // Convertimos a número para asegurar la comparación
+  }
+
+  async verificarRolUsuario() {
+    const { value } = await Preferences.get({ key: 'userData' });
+    
+    if (value) {
+      try {
+        const bytes = CryptoJS.AES.decrypt(value, environment.secretKey);
+        const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+        this.userInfo = JSON.parse(decryptedData);
+        
+        console.log("Verificando el rol del usuario:", JSON.stringify(this.userInfo, null, 2));
+  
+        if (Number(this.userInfo?.rol) !== 1) {
+          console.warn("El usuario no tiene el rol de administrador.");
+        } else {
+          console.log("Usuario con rol de administrador verificado.");
+        }
+      } catch (error) {
+        console.error("Error al desencriptar y verificar el rol del usuario:", error);
+      }
+    } else {
+      console.warn("No se encontró información del usuario.");
+    }
   }
 
 

@@ -87,14 +87,21 @@
   </ion-card-content>
 
 </ion-card>
-<ion-button (click)="generarRuta()" expand="block" mode="ios" class="submit">
-  Generar Ruta
-  <ion-icon slot="end" name="location-outline"></ion-icon>
-</ion-button>
-<ion-button  (click)="modificarPedido()" expand="block" mode="ios">
-  Editar Pedido
-  <ion-icon slot="end" name="create-outline"></ion-icon>
+<div class="button-group">
+  <ion-button (click)="generarRuta()" expand="block" mode="ios" class="submit">
+    Generar Ruta
+    <ion-icon slot="end" name="location-outline"></ion-icon>
   </ion-button>
+  <ion-button *ngIf="isAdmin()" (click)="modificarPedido()" expand="block" mode="ios">
+    Editar Pedido
+    <ion-icon slot="end" name="create-outline"></ion-icon>
+  </ion-button>
+  <ion-button *ngIf="isAdmin()" (click)="editarPedido()" expand="block" mode="ios">
+    Agregar Pedido
+    <ion-icon slot="end" name="duplicate-outline"></ion-icon>
+  </ion-button>
+</div>
+  
 
 <ion-button (click)="logout()" expand="block" mode="ios">
   Salir
@@ -102,9 +109,9 @@
 </ion-button>
 
   
-  <!--<ion-button *ngIf="isAdmin()"  expand="block" mode="ios" (click)="goToAdmin()">
-    Opciones de Administrador
-    <ion-icon slot="end" name="settings-outline"></ion-icon>
-  </ion-button>-->
+<!--<ion-button *ngIf="isAdmin()" expand="block" mode="ios" (click)="modificarPedido()">
+  Opciones de Administrador
+  <ion-icon slot="end" name="settings-outline"></ion-icon>
+</ion-button>-->
   
 </ion-content>

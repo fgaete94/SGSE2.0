@@ -85,4 +85,8 @@ export class ModificarPedidoPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  editarPedido(){
+    this.router.navigate(['/agregar-pedido']);
+  }
+
 }
