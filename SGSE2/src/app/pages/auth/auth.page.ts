@@ -64,26 +64,35 @@ export class AuthPage implements OnInit {
     try {
       const user = await this._authService.obtener_usuario(username).toPromise();
       this.userInfo = user?.body || null;
-
-      if (this.userInfo && this.userInfo.user === username && this.userInfo.password === password) {
-        // Verifica que rol esté presente antes de cifrar
-        console.log("Rol del usuario:", this.userInfo.rol);
-        if (!this.userInfo.rol) {
-          this.errorMessage = "Error: El rol no está definido en la información del usuario";
+  
+      if (this.userInfo && this.userInfo.user === username) {
+        // Desencriptar la contraseña almacenada para compararla
+        const bytes = CryptoJS.AES.decrypt(this.userInfo.password, environment.secretKey);
+        const decryptedPassword = bytes.toString(CryptoJS.enc.Utf8);
+  
+        if (decryptedPassword === password) {
+          // Verifica que rol esté presente antes de cifrar
+          console.log("Rol del usuario:", this.userInfo.rol);
+          if (!this.userInfo.rol) {
+            this.errorMessage = "Error: El rol no está definido en la información del usuario";
+            console.error(this.errorMessage);
+            return;
+          }
+  
+          const expiration = Date.now() + this.sessionDuration;
+          const userData = { ...this.userInfo, expiration };
+          const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(userData), environment.secretKey).toString();
+  
+          await Preferences.set({
+            key: 'userData',
+            value: encryptedData,
+          });
+  
+          this.router.navigate(['/home']);
+        } else {
+          this.errorMessage = "Usuario no existente o contraseña incorrecta";
           console.error(this.errorMessage);
-          return;
         }
-
-        const expiration = Date.now() + this.sessionDuration;
-        const userData = { ...this.userInfo, expiration };
-        const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(userData), environment.secretKey).toString();
-
-        await Preferences.set({
-          key: 'userData',
-          value: encryptedData,
-        });
-
-        this.router.navigate(['/home']);
       } else {
         this.errorMessage = "Usuario no existente o contraseña incorrecta";
         console.error(this.errorMessage);
