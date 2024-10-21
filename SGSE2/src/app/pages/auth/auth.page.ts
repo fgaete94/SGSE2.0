@@ -5,6 +5,9 @@ import { User } from 'src/app/Models/user';
 import { AuthServiceService } from 'src/app/services/auth-service/auth-service.service';
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
+import { firstValueFrom } from 'rxjs';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { ApiConfigService } from 'src/app/services/api-config/api-config.service';
 
 @Component({
   selector: 'app-auth',
@@ -24,12 +27,16 @@ export class AuthPage implements OnInit {
 
   userInfo: User | null = null;
 
-  constructor(private router: Router, private _authService: AuthServiceService) {}
+  constructor(
+    private router: Router,
+    private _authService: AuthServiceService,
+    private apiService: ApiConfigService,  // Inyecta ApiConfigService aquí
+    private httpClient: HttpClient         // Inyecta HttpClient aquí
+  ) {}
 
   ngOnInit() {}
 
-
- /* async obtenerUser(username: string): Promise<User | null> {
+  async obtenerUser(username: string): Promise<User | null> {
     try {
       const params = new HttpParams().set('user', `eq.${username}`);
       const response: HttpResponse<User[]> = await firstValueFrom(
@@ -50,8 +57,8 @@ export class AuthPage implements OnInit {
   async obtenerUsuario(username: string): Promise<User | null> {
     const response: HttpResponse<User | null> = await firstValueFrom(this._authService.obtener_usuario(username));
     console.log(response);
-    return response.body ? response.body : null;*/
-}
+    return response.body ? response.body : null;
+  }
 
   async login(username: string, password: string) {
     try {
@@ -86,7 +93,6 @@ export class AuthPage implements OnInit {
       console.error(this.errorMessage, error);
     }
   }
-  
 
   goToSignUp() {
     this.router.navigate(['/sign-up']);
