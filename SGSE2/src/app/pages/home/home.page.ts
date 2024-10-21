@@ -142,6 +142,10 @@ export class HomePage {
   modificarPedido(){
     this.router.navigate(['/modificar-pedido']);
   }
+  
+  editarPedido(){
+    this.router.navigate(['/agregar-pedido']);
+  }
 
 
   isAdmin(): boolean {

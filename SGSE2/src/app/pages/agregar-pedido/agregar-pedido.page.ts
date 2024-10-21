@@ -10,6 +10,7 @@ import { Comuna } from 'src/app/Models/comuna';
 import { AgregarPedido } from 'src/app/Models/agregar_pedido';
 import { Cliente } from 'src/app/Models/cliente';
 import { ClienteService } from 'src/app/services/clientes/cliente.service';
+import { User } from 'src/app/Models/user';
 
 @Component({
   selector: 'app-agregar-pedido',
@@ -21,12 +22,13 @@ export class AgregarPedidoPage implements OnInit {
   productos: Producto[] = [];
   comunas: Comuna[] = [];
   cliente: Cliente[] = [];
+  repartidor: User[] = [];  // Se agrega el repartidor
   nuevoPedido: AgregarPedido = {
     direccion: '',
     comuna: {} as Comuna,
     cliente: {} as Cliente,
-    repartidor: '',
-    n_pedido: 0,
+    repartidor: {} as User,  // Se agrega el repartidor
+    //n_pedido: 0,
     producto: {} as Producto,
     cantidad: 0,
     tel_contacto: 0,
@@ -43,6 +45,7 @@ export class AgregarPedidoPage implements OnInit {
     this.obtenerProductos();
     this.obtenerComunas();
     this.obtenerCliente();
+    this.obtenerRepartidor();  // Se agrega el repartidor
   }
 
   async obtenerPedido(n_pedido: number) {
@@ -75,6 +78,14 @@ export class AgregarPedidoPage implements OnInit {
     );
     console.log(response);
     this.cliente = response.body || [];
+  }
+
+  async obtenerRepartidor() {
+    const response: HttpResponse<User[]> = await firstValueFrom(
+      this._serviceModPedido.obtener_Repartidor()
+    );
+    console.log(response);
+    this.repartidor = response.body || [];
   }
 
   async agregarPedido() {

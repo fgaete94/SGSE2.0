@@ -3,10 +3,10 @@
 
 <ion-content [fullscreen]="true">
   <ion-card>
-    <ion-item color="light">
+    <!---<ion-item color="light">
       <ion-label position="floating">Número de Pedido <ion-text color="danger">(Required)</ion-text></ion-label>
       <ion-input [(ngModel)]="nuevoPedido.n_pedido" type="number" placeholder="Ingrese el número del pedido"></ion-input>
-    </ion-item>
+    </ion-item>--->
 
     <ion-item color="light">
       <ion-label position="floating">Dirección <ion-text color="danger">(Required)</ion-text></ion-label>
@@ -16,26 +16,28 @@
     <ion-item color="light">
       <ion-label>Comuna <ion-text color="danger">(Required)</ion-text></ion-label>
       <ion-select [(ngModel)]="nuevoPedido.comuna" interface="popover" placeholder="Seleccione una comuna">
-        <ion-select-option *ngFor="let comuna of comunas" [value]="comuna">{{comuna.nombre}}</ion-select-option>
+        <ion-select-option *ngFor="let comuna of comunas" [value]="comuna.nombre">{{comuna.nombre}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item color="light">
       <ion-label>Cliente <ion-text color="danger">(Required)</ion-text></ion-label>
       <ion-select [(ngModel)]="nuevoPedido.cliente" interface="popover" placeholder="Seleccione un cliente">
-        <ion-select-option *ngFor="let cliente of cliente" [value]="cliente">{{cliente.nombre}}</ion-select-option>
+        <ion-select-option *ngFor="let cliente of cliente" [value]="cliente.nombre">{{cliente.nombre}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item color="light">
-      <ion-label position="floating">Repartidor</ion-label>
-      <ion-input [(ngModel)]="nuevoPedido.repartidor" placeholder="Ingrese el nombre del repartidor"></ion-input>
+      <ion-label>Repartidor <ion-text color="danger">(Required)</ion-text></ion-label>
+      <ion-select [(ngModel)]="nuevoPedido.repartidor" interface="popover" placeholder="Ingrese el nombre del repartidor">
+        <ion-select-option *ngFor="let repartidor of repartidor" [value]="repartidor.nombre">{{repartidor.nombre}}</ion-select-option>
+      </ion-select>
     </ion-item>
 
     <ion-item color="light">
       <ion-label>Producto <ion-text color="danger">(Required)</ion-text></ion-label>
       <ion-select [(ngModel)]="nuevoPedido.producto" interface="popover" placeholder="Seleccione un producto">
-        <ion-select-option *ngFor="let producto of productos" [value]="producto">{{producto.name}}</ion-select-option>
+        <ion-select-option *ngFor="let producto of productos" [value]="producto.name">{{producto.name}}</ion-select-option>
       </ion-select>
     </ion-item>
 
