@@ -1,0 +1,46 @@
+<app-header title="Agregar Cliente">
+</app-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+
+    <ion-item color="light">
+      <ion-label position="floating">Nombre <ion-text color="danger">(Required)</ion-text></ion-label>
+      <ion-input [(ngModel)]="nuevoCliente.nombre" placeholder="Ingrese el Cliente"></ion-input>
+    </ion-item>
+
+    <ion-item color="light">
+      <ion-label position="floating">Telefono <ion-text color="danger">(Required)</ion-text></ion-label>
+      <ion-input [(ngModel)]="nuevoCliente.telefono" placeholder="Ingrese N° de Telefono"></ion-input>
+    </ion-item>
+
+    <ion-item color="light">
+      <ion-label position="floating">Direccion <ion-text color="danger">(Required)</ion-text></ion-label>
+      <ion-input [(ngModel)]="nuevoCliente.direccion" placeholder="Ingrese la Dirección"></ion-input>
+    </ion-item>
+
+    <ion-item color="light">
+      <ion-label>Comuna <ion-text color="danger">(Required)</ion-text></ion-label>
+      <ion-select [(ngModel)]="nuevoCliente.comuna" interface="popover" placeholder="Seleccione una comuna">
+        <ion-select-option *ngFor="let comuna of comunas" [value]="comuna.id">{{comuna.nombre}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item color="light">
+      <ion-label position="floating">Mail <ion-text color="danger">(Required)</ion-text></ion-label>
+      <ion-input [(ngModel)]="nuevoCliente.mail" placeholder="Ingrese Mail Contacto"></ion-input>
+    </ion-item>
+
+    <ion-button (click)="agregarCliente();volver()" expand="block" mode="ios" class="submit">
+      Agregar Cliente
+      <ion-icon slot="end" name="duplicate-outline"></ion-icon>
+    </ion-button>
+
+    <ion-button (click)="volver()" expand="block" mode="ios">
+      Volver a Pedidos
+      <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+
+
+  </ion-card>
+</ion-content>

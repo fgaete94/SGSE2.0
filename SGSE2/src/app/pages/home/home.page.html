@@ -100,16 +100,20 @@
     Agregar Pedido
     <ion-icon slot="end" name="duplicate-outline"></ion-icon>
   </ion-button>
+  <ion-button *ngIf="isAdmin()" (click)="agregarCliente()" expand="block" mode="ios">
+    Agregar Cliente
+    <ion-icon slot="end" name="duplicate-outline"></ion-icon>
+  </ion-button>
 </div>
   
 
-<ion-button (click)="logout()" expand="block" mode="ios">
+<!--<ion-button (click)="logout()" expand="block" mode="ios">
   Salir
   <ion-icon slot="end" name="log-out-outline"></ion-icon>
 </ion-button>
 
   
-<!--<ion-button *ngIf="isAdmin()" expand="block" mode="ios" (click)="modificarPedido()">
+<ion-button *ngIf="isAdmin()" expand="block" mode="ios" (click)="modificarPedido()">
   Opciones de Administrador
   <ion-icon slot="end" name="settings-outline"></ion-icon>
 </ion-button>-->

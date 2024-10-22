@@ -1,8 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" *ngIf="backButton">
-      <ion-back-button defaultHref="{{ backButton }}"></ion-back-button>
+    
+
+    <ion-buttons slot="primary" color="primary">
+      <ion-button fill="solid" class="singOut" *ngIf="isHomePage()" (click)="logout()" >
+        Cerrar sesión
+      </ion-button>
     </ion-buttons>
-    <ion-title>{{ title }}</ion-title>
+    <ion-title><strong>{{ title }}</strong>
+      <div class="admin">SGSE</div>
+    </ion-title>
   </ion-toolbar>
 </ion-header>

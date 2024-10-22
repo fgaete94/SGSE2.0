@@ -37,10 +37,16 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'crear-cliente',
+    loadChildren: () => import('./pages/crear-cliente/crear-cliente.module').then( m => m.CrearClientePageModule)
+  },
+  {
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full'
-  }
+  },
+
+
 ];
 
 @NgModule({
