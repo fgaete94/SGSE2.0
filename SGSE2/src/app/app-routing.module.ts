@@ -34,7 +34,8 @@ const routes: Routes = [
   },
   {
     path: 'crear-cliente',
-    loadChildren: () => import('./pages/crear-cliente/crear-cliente.module').then( m => m.CrearClientePageModule)
+    loadChildren: () => import('./pages/crear-cliente/crear-cliente.module').then( m => m.CrearClientePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '',
