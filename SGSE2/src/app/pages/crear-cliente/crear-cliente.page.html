@@ -22,7 +22,7 @@
     <ion-item color="light">
       <ion-label>Comuna <ion-text color="danger">(Required)</ion-text></ion-label>
       <ion-select [(ngModel)]="nuevoCliente.comuna" interface="popover" placeholder="Seleccione una comuna">
-        <ion-select-option *ngFor="let comuna of comunas" [value]="comuna.nombre">{{comuna.nombre}}</ion-select-option>
+        <ion-select-option *ngFor="let comuna of comunas" [value]="comuna.id">{{comuna.nombre}}</ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -31,7 +31,7 @@
       <ion-input [(ngModel)]="nuevoCliente.mail" placeholder="Ingrese Mail Contacto"></ion-input>
     </ion-item>
 
-    <ion-button (click)="agregarCliente()" expand="block" mode="ios" class="submit">
+    <ion-button (click)="agregarCliente();volver()" expand="block" mode="ios" class="submit">
       Agregar Cliente
       <ion-icon slot="end" name="duplicate-outline"></ion-icon>
     </ion-button>

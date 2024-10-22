@@ -17,7 +17,6 @@ import { Router } from '@angular/router';
 export class CrearClientePage implements OnInit {
 
   comunas: Comuna[] = [];
-  cliente: Cliente[] = [];
 
   nuevoCliente: agregarCliente = {
     nombre: '',
