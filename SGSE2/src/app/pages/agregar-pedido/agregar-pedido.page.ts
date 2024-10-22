@@ -11,6 +11,7 @@ import { AgregarPedido } from 'src/app/Models/agregar_pedido';
 import { Cliente } from 'src/app/Models/cliente';
 import { ClienteService } from 'src/app/services/clientes/cliente.service';
 import { User } from 'src/app/Models/user';
+import { ApiConfigService } from 'src/app/services/api-config/api-config.service';
 
 @Component({
   selector: 'app-agregar-pedido',
@@ -38,7 +39,8 @@ export class AgregarPedidoPage implements OnInit {
     private router: Router,
     private _serviceModPedido: ModificarPedidoService,
     private _serviceProducto: ProductoService,
-    private _serviceCliente: ClienteService
+    private _serviceCliente: ClienteService,
+    private utilsSvc: ApiConfigService
   ) {}
 
   ngOnInit() {
@@ -96,6 +98,15 @@ export class AgregarPedidoPage implements OnInit {
       );
       console.log('Pedido agregado exitosamente:', response);
       this.volver(); // Navegar de regreso a la página anterior
+      
+      this.utilsSvc.presentToast({
+        message: 'Pedido agregado exitosamente', 
+        duration: 1500,
+        color: 'primary',
+        position: 'middle',
+        icon: 'checkmark-done-outline'
+      })
+
     } catch (error) {
       console.error('Error al agregar pedido:', error);
     }

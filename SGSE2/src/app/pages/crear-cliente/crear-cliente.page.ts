@@ -7,6 +7,7 @@ import { ModificarPedidoService } from 'src/app/services/pedidos/modificar-pedid
 import { firstValueFrom } from 'rxjs';
 import { ClienteService } from 'src/app/services/clientes/cliente.service';
 import { Router } from '@angular/router';
+import { ApiConfigService } from 'src/app/services/api-config/api-config.service';
 
 
 @Component({
@@ -27,7 +28,10 @@ export class CrearClientePage implements OnInit {
   };
   
 
-  constructor(private _serviceModPedido: ModificarPedidoService, private _serviceCliente: ClienteService, private router: Router) { }
+  constructor(private _serviceModPedido: ModificarPedidoService,
+    private _serviceCliente: ClienteService,
+    private router: Router,
+    private utilsSvc : ApiConfigService) { }
 
   ngOnInit() {
     this.obtenerComunas();
@@ -49,8 +53,16 @@ export class CrearClientePage implements OnInit {
       );
       console.log('Pedido agregado exitosamente:', response);
       this.volver(); // Navegar de regreso a la página anterior
+
+      this.utilsSvc.presentToast({
+        message: 'Cliente agregado exitosamente', 
+        duration: 1500,
+        color: 'primary',
+        position: 'middle',
+        icon: 'checkmark-done-outline'
+      })
     } catch (error) {
-      console.error('Error al agregar pedido:', error);
+      console.error('Error al agregar cliente:', error);
     }
   }
 

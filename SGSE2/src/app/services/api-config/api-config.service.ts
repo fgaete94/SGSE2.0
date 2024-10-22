@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastController, ToastOptions } from '@ionic/angular';
 import { catchError, filter, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -11,7 +12,7 @@ export class ApiConfigService {
   
   baseUrl = environment.api_url;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastCtrl : ToastController) { }
 
   // Configurar headers comunes
   private getHeaders(): HttpHeaders {
@@ -72,5 +73,11 @@ export class ApiConfigService {
     );
   }
   
+  /// === Toast =====
+
+  async presentToast(opts?: ToastOptions){
+    const toast = await this.toastCtrl.create(opts);
+    toast.present();
+  }
 
 }
