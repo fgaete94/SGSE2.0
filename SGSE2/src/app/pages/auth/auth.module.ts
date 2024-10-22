@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { AuthPageRoutingModule } from './auth-routing.module'; // Importa correctamente el módulo de rutas
 import { AuthPage } from './auth.page'; // Importa AuthPage
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { AuthPage } from './auth.page'; // Importa AuthPage
     FormsModule,
     IonicModule,
     AuthPageRoutingModule, // Asegúrate de que está agregado aquí
+    SharedModule
   ],
   declarations: [AuthPage], // Declara AuthPage aquí
 })
