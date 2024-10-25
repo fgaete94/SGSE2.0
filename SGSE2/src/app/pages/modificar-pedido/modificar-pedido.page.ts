@@ -9,6 +9,7 @@ import { ProductoService } from 'src/app/services/productos/producto.service';
 import { Comuna } from 'src/app/Models/comuna';
 import { actualizarPedido } from 'src/app/Models/actualizar_pedido';
 import { AlertController } from '@ionic/angular';
+import { ApiConfigService } from 'src/app/services/api-config/api-config.service';
 
 @Component({
   selector: 'app-modificar-pedido',
@@ -34,7 +35,10 @@ export class ModificarPedidoPage implements OnInit {
 
 
 
-  constructor(private router: Router, private _serviceModPedido: ModificarPedidoService, private _serviceProducto: ProductoService, ) { }
+  constructor(private router: Router,
+    private _serviceModPedido: ModificarPedidoService,
+    private _serviceProducto: ProductoService,
+  private utilsSvc: ApiConfigService ) { }
 
   ngOnInit() {
     this.obtenerProductos();
@@ -63,6 +67,14 @@ export class ModificarPedidoPage implements OnInit {
       console.log(pedidoActualizado);
       const response: HttpResponse<actualizarPedido> = await firstValueFrom(this._serviceModPedido.actualizarPedido(pedidoActualizado, this.n_pedido));
       console.log('Response:', response);
+
+      this.utilsSvc.presentToast({
+        message: 'Pedido modificado exitosamente', 
+        duration: 1500,
+        color: 'primary',
+        position: 'middle',
+        icon: 'checkmark-done-outline'
+      })
     } catch (error) {
       console.error('Error:', error);
     }
@@ -73,6 +85,14 @@ export class ModificarPedidoPage implements OnInit {
     try {
       const response: HttpResponse<Pedido> = await firstValueFrom(this._serviceModPedido.eliminarPedido(this.n_pedido));
       console.log('Pedido eliminado con éxito:', response);
+
+      this.utilsSvc.presentToast({
+        message: 'Pedido eliminado exitosamente', 
+        duration: 1500,
+        color: 'primary',
+        position: 'middle',
+        icon: 'checkmark-done-outline'
+      })
     } catch (error) {
       console.error('Error al eliminar el pedido:', error);
     }

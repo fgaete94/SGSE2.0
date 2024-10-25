@@ -8,6 +8,7 @@ describe('AuthServiceService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({imports: [HttpClientModule]});
+    TestBed.configureTestingModule({imports: [HttpClientModule]});
     service = TestBed.inject(AuthServiceService);
   });
 

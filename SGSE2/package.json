@@ -157,7 +157,7 @@
       "styleext": "scss"
     }
   },
-  "scripts": {
+   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

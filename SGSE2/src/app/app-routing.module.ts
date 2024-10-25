@@ -16,11 +16,7 @@ const routes: Routes = [
     path: 'sign-up',
     loadChildren: () => import('./pages/auth/sign-up/sign-up.module').then(m => m.SignUpPageModule)
   },
-  {
-    path: 'crear-pedido',
-    loadChildren: () => import('./pages/crear-pedido/crear-pedido/crear-pedido.module').then(m => m.CrearPedidoPageModule),
-    canActivate: [AuthGuard]
-  },
+
   {
     path: 'ruta',
     loadChildren: () => import('./pages/ruta/ruta/ruta.module').then(m => m.RutaPageModule),
@@ -38,7 +34,8 @@ const routes: Routes = [
   },
   {
     path: 'crear-cliente',
-    loadChildren: () => import('./pages/crear-cliente/crear-cliente.module').then( m => m.CrearClientePageModule)
+    loadChildren: () => import('./pages/crear-cliente/crear-cliente.module').then( m => m.CrearClientePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '',

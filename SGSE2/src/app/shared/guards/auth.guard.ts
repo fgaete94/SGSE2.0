@@ -25,6 +25,3 @@ export class AuthGuard implements CanActivate {
     });
   }
 }
-
-// Nota: Crea este archivo 'auth.guard.ts' dentro de la carpeta 'shared/guards' en tu proyecto.
-// Si no existe la carpeta 'guards' dentro de 'shared', créala para organizar mejor los guards de la aplicación.
