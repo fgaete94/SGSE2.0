@@ -34,6 +34,24 @@ export class PedidoService {
       })
     );
   }
+  
+  obtener_pedido_full(): Observable<HttpResponse<Pedido[]>> {
+    const params = new HttpParams().set('select',"*");
+    return this._apiService.get<Pedido[]>(this.path, params).pipe(
+      map(response => {
+        console.log(response)
+        const filteredBody = response.body?.filter(pedido => pedido.n_pedido != null);
+
+        // Retornar una nueva instancia de HttpResponse con el cuerpo filtrado
+        return new HttpResponse({
+          body: filteredBody,   // El nuevo array filtrado
+          headers: response.headers,  // Copia los headers originales
+          status: response.status,    // Copia el status original
+          statusText: response.statusText,  // Copia el statusText original
+        });
+      })
+    );
+  }
 
   obtener_detalle_pedido(id: number): Observable<HttpResponse<DetallePedido[]>> {
     const params = new HttpParams().set('select',"*");

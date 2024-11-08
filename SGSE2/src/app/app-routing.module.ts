@@ -38,10 +38,20 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'entrega-pedido',
+    loadChildren: () => import('./pages/entrega-pedido/entrega-pedido.module').then( m => m.EntregaPedidoPageModule)
+  },
+  {
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full'
+  },  {
+    path: 'pedidos-totales',
+    loadChildren: () => import('./pages/pedidos-totales/pedidos-totales.module').then( m => m.PedidosTotalesPageModule)
   },
+
+
+
 
 
 ];

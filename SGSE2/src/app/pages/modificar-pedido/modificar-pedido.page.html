@@ -57,10 +57,11 @@
     </ion-item>
     <ion-item>
       <ion-label>
-      <h2>Estado:</h2>
+      <h2>Producto:</h2>
       </ion-label>
-      <ion-input [(ngModel)]="pedidoActualizado.estado" placeholder="Ingrese Cantidad"></ion-input>
-      <ion-select-option *ngFor="let estado of estado_pedido" [value]="estado">{{estado.nombre}}</ion-select-option>
+      <ion-select [(ngModel)]="pedidoActualizado.estado" placeholder="{{pedido.estado}}" interface="popover">
+      <ion-select-option *ngFor="let estado of estados" [value]="estado.nombre">{{estado.nombre}}</ion-select-option>
+      </ion-select>
     </ion-item>
     </ion-list>
 

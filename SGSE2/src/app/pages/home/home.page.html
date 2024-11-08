@@ -82,6 +82,11 @@
                    </ion-label>
                </ion-item>
 
+               <ion-button (click)="entregaPedido() ; modal.dismiss()"  expand="block" mode="ios" class="submit">
+                Entregar Pedido
+                <ion-icon slot="end" name="receipt-outline"></ion-icon>
+              </ion-button>
+
                 </ion-list>
               </ion-content>
             </ng-template>
@@ -109,6 +114,10 @@
   <ion-button *ngIf="isAdmin()" (click)="agregarCliente()" expand="block" mode="ios">
     Agregar Cliente
     <ion-icon slot="end" name="people-outline"></ion-icon>
+  </ion-button>
+  <ion-button *ngIf="isAdmin()" (click)="verReporte()" expand="block" mode="ios">
+    Ver Reporte
+    <ion-icon slot="end" name="clipboard-outline"></ion-icon>
   </ion-button>
 </div>
   

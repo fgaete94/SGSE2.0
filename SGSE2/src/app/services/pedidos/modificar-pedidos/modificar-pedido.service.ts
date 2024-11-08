@@ -8,6 +8,7 @@ import { actualizarPedido } from 'src/app/Models/actualizar_pedido';
 import { AgregarPedido } from 'src/app/Models/agregar_pedido';
 import { User } from 'src/app/Models/user';
 import { EstadoPedido } from 'src/app/Models/estado_pedido';
+import { actualizarEstado } from 'src/app/Models/actualiza_estado';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class ModificarPedidoService {
   path = "Pedido"
   path2 = "Comuna"
   path3 = "Usuario"
-  path4 = "Estado_pedido"
+  path4 = "EstadoPedido"
 
   constructor(private _apiService:ApiConfigService) { }
 
@@ -103,6 +104,11 @@ export class ModificarPedidoService {
 
   agregarPedido(nuevoPedido: AgregarPedido): Observable<HttpResponse<AgregarPedido>> {
     return this._apiService.post<AgregarPedido>(this.path, nuevoPedido);
+  }
+
+  actualizarEstado(estadoActualizado:actualizarEstado , n_pedido:number): Observable<HttpResponse<actualizarEstado>>{
+    const params = new HttpParams().set('n_pedido',`eq.${n_pedido}`)
+    return this._apiService.patch<actualizarEstado>(this.path,params,estadoActualizado)
   }
   
 

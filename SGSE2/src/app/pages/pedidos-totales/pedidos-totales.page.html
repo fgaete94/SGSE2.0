@@ -1,0 +1,27 @@
+<app-header title="Pedidos">
+</app-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col>N° Pedido</ion-col>
+      <ion-col>Cliente</ion-col>
+      <ion-col>Comuna</ion-col>
+      <ion-col>Repartidor</ion-col>
+      <ion-col>Estado</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let pedido of pedidos">
+      <ion-col>{{pedido.n_pedido}}</ion-col>
+      <ion-col>{{pedido.cliente}}</ion-col>
+      <ion-col>{{pedido.comuna}}</ion-col>
+      <ion-col>{{pedido.repartidor}}</ion-col>
+      <ion-col>{{pedido.estado}}</ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+    <ion-button (click)="volver()" expand="block" mode="ios">
+      Volver
+      <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+</ion-content>

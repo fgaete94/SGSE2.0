@@ -21,7 +21,7 @@ export class AuthPage implements OnInit {
   errorMessage: string = '';
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
-  private sessionDuration = 5 * 60 * 1000;
+  private sessionDuration = 10 * 60 * 1000;
 
   username = "";
 

@@ -13,6 +13,8 @@ import { DetallePedido } from 'src/app/Models/detalle_pedido';
 import { User } from 'src/app/Models/user';
 import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
+import { actualizarEstado } from 'src/app/Models/actualiza_estado';
+import { ModificarPedidoService } from 'src/app/services/pedidos/modificar-pedidos/modificar-pedido.service';
 
 
 @Component({
@@ -21,6 +23,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  [x: string]: any;
 
   mensaje = "";
   name = "";
@@ -37,7 +40,8 @@ export class HomePage {
   constructor( private _serviceProducto:ProductoService,
     private _servicePedido: PedidoService,
     private router: Router,
-    private _serviceCliente: ClienteService,) {}
+    private _serviceCliente: ClienteService,
+    private _serviceModPedido: ModificarPedidoService) {}
 
   async ngOnInit() {
     await this.getUserInfo();
@@ -148,6 +152,14 @@ export class HomePage {
   }
   agregarCliente(){
     this.router.navigate(['/crear-cliente']);
+  } 
+
+  entregaPedido(){
+    this.router.navigate(['/entrega-pedido']);
+  }
+
+  verReporte(){
+    this.router.navigate(['/pedidos-totales']);
   }
 
 
@@ -179,6 +191,21 @@ export class HomePage {
       console.warn("No se encontró información del usuario.");
     }
   }
+
+ /* 
+TERMINAR ESTO 
+ async actualizarEstado(estadoActualizado: actualizarEstado, pedido: Pedido) {
+    try {
+      console.log(estadoActualizado);
+      const pedidoId = pedido.n_pedido; // Obtener el ID del pedido
+      const response: HttpResponse<actualizarEstado> = await firstValueFrom(this._serviceModPedido.actualizarEstado(estadoActualizado, pedidoId));
+      console.log('Response:', response);
+
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }*/
 
 
 }

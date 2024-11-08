@@ -25,7 +25,7 @@ export class ModificarPedidoPage implements OnInit {
   pedidoInfo: Pedido[] = [];
   productos: Producto[] = [];
   comunas: Comuna[] = [];
-  estado_pedido: EstadoPedido[] = [];
+  estados: EstadoPedido[] = [];
   pedidoActualizado: actualizarPedido = {
     direccion: "",
     comuna: {} as Comuna,
@@ -46,6 +46,7 @@ export class ModificarPedidoPage implements OnInit {
   ngOnInit() {
     this.obtenerProductos();
     this.obtenerComunas();
+    this.obtenerEstado();
   }
 
   async obtenerPedido(n_pedido: number) {
@@ -68,7 +69,7 @@ export class ModificarPedidoPage implements OnInit {
   async obtenerEstado() {
     const response: HttpResponse<EstadoPedido[]> = await firstValueFrom(this._serviceModPedido.obtener_estado());
     console.log(response)
-    this.estado_pedido = response.body || [];
+    this.estados = response.body || [];
   }
 
   async actualizarPedido(pedidoActualizado: actualizarPedido) {
