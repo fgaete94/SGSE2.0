@@ -4,6 +4,7 @@ import { Pedido } from 'src/app/Models/pedido';
 import { PedidoService } from 'src/app/services/pedidos/pedido.service';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-pedidos-totales',
@@ -35,6 +36,11 @@ export class PedidosTotalesPage implements OnInit {
 
   volver(){
     this.router.navigate(['/home']);
+  }
+  exportToExcel() {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.pedidos);
+    const workbook: XLSX.WorkBook = { Sheets: { 'Pedidos': worksheet }, SheetNames: ['Pedidos'] };
+    XLSX.writeFile(workbook, 'pedidos.xlsx');
   }
 
 }
