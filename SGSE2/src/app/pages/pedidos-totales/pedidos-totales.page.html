@@ -1,32 +1,32 @@
-<app-header title="Pedidos">
-</app-header>
+<app-header title="Pedidos"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col>N° Pedido</ion-col>
-      <ion-col>Cliente</ion-col>
-      <ion-col>Comuna</ion-col>
-      <ion-col>Repartidor</ion-col>
-      <ion-col>Estado</ion-col>
-    </ion-row>
-    <ion-row *ngFor="let pedido of pedidos">
-      <ion-col>{{pedido.n_pedido}}</ion-col>
-      <ion-col>{{pedido.cliente}}</ion-col>
-      <ion-col>{{pedido.comuna}}</ion-col>
-      <ion-col>{{pedido.repartidor}}</ion-col>
-      <ion-col>{{pedido.estado}}</ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content>
+  <div class="d-flex-center">
+    <ion-grid fixed>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="2" size-sm="2" class="ion-text-center">N° Pedido</ion-col>
+        <ion-col size="2" size-sm="2" class="ion-text-center">Cliente</ion-col>
+        <ion-col size="2" size-sm="2" class="ion-text-center">Comuna</ion-col>
+        <ion-col size="2" size-sm="2" class="ion-text-center">Repartidor</ion-col>
+        <ion-col size="2" size-sm="2" class="ion-text-center">Estado</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let pedido of pedidos" class="ion-justify-content-center">
+        <ion-col size="2" size-sm="2" class="ion-text-center">{{pedido.n_pedido}}</ion-col>
+        <ion-col size="2" size-sm="2" class="ion-text-center">{{pedido.cliente}}</ion-col>
+        <ion-col size="2" size-sm="2" class="ion-text-center">{{pedido.comuna}}</ion-col>
+        <ion-col size="2" size-sm="2" class="ion-text-center">{{pedido.repartidor}}</ion-col>
+        <ion-col size="2" size-sm="2" class="ion-text-center">{{pedido.estado}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
   <ion-button (click)="exportToExcel()" expand="block" mode="ios">
     Descargar Excel
     <ion-icon slot="start" name="download-outline"></ion-icon>
   </ion-button>
 
-
-    <ion-button (click)="volver()" expand="block" mode="ios">
-      Volver
-      <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
-    </ion-button>
+  <ion-button (click)="volver()" expand="block" mode="ios">
+    Volver
+    <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+  </ion-button>
 </ion-content>
