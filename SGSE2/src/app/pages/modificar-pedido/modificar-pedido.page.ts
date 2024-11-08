@@ -10,6 +10,7 @@ import { Comuna } from 'src/app/Models/comuna';
 import { actualizarPedido } from 'src/app/Models/actualizar_pedido';
 import { AlertController } from '@ionic/angular';
 import { ApiConfigService } from 'src/app/services/api-config/api-config.service';
+import { EstadoPedido } from 'src/app/Models/estado_pedido';
 
 @Component({
   selector: 'app-modificar-pedido',
@@ -24,13 +25,15 @@ export class ModificarPedidoPage implements OnInit {
   pedidoInfo: Pedido[] = [];
   productos: Producto[] = [];
   comunas: Comuna[] = [];
+  estado_pedido: EstadoPedido[] = [];
   pedidoActualizado: actualizarPedido = {
     direccion: "",
     comuna: {} as Comuna,
     producto: {} as Producto,
     cantidad: 0,
     tel_contacto: 0,
-    update_at: new Date()
+    update_at: new Date(),
+    estado: {} as EstadoPedido
   }
 
 
@@ -60,6 +63,12 @@ export class ModificarPedidoPage implements OnInit {
     const response: HttpResponse<Comuna[]> = await firstValueFrom(this._serviceModPedido.obtener_comuna());
     console.log(response)
     this.comunas = response.body || [];
+  }
+
+  async obtenerEstado() {
+    const response: HttpResponse<EstadoPedido[]> = await firstValueFrom(this._serviceModPedido.obtener_estado());
+    console.log(response)
+    this.estado_pedido = response.body || [];
   }
 
   async actualizarPedido(pedidoActualizado: actualizarPedido) {

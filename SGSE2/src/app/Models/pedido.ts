@@ -1,5 +1,6 @@
 import { Cliente } from "./cliente";
 import { Comuna } from "./comuna";
+import { EstadoPedido } from "./estado_pedido";
 import { Producto } from "./producto";
 import { User } from "./user";
 
@@ -13,5 +14,6 @@ export interface Pedido{
     producto: string;
     cantidad: number;
     tel_contacto: number;
+    estado: string;
 
 }

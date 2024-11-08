@@ -55,6 +55,13 @@
       </ion-label>
       <ion-input [(ngModel)]="pedidoActualizado.cantidad" placeholder="Ingrese Cantidad"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label>
+      <h2>Estado:</h2>
+      </ion-label>
+      <ion-input [(ngModel)]="pedidoActualizado.estado" placeholder="Ingrese Cantidad"></ion-input>
+      <ion-select-option *ngFor="let estado of estado_pedido" [value]="estado">{{estado.nombre}}</ion-select-option>
+    </ion-item>
     </ion-list>
 
 

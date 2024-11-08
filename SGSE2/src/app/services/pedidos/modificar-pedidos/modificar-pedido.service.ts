@@ -7,6 +7,7 @@ import { Comuna } from 'src/app/Models/comuna';
 import { actualizarPedido } from 'src/app/Models/actualizar_pedido';
 import { AgregarPedido } from 'src/app/Models/agregar_pedido';
 import { User } from 'src/app/Models/user';
+import { EstadoPedido } from 'src/app/Models/estado_pedido';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class ModificarPedidoService {
   path = "Pedido"
   path2 = "Comuna"
   path3 = "Usuario"
+  path4 = "Estado_pedido"
 
   constructor(private _apiService:ApiConfigService) { }
 
@@ -60,6 +62,23 @@ export class ModificarPedidoService {
       map(response => {
         console.log(response)
         const filteredBody = response.body?.filter(repartidor => repartidor.user != null);
+
+        // Retornar una nueva instancia de HttpResponse con el cuerpo filtrado
+        return new HttpResponse({
+          body: filteredBody,   // El nuevo array filtrado
+          headers: response.headers,  // Copia los headers originales
+          status: response.status,    // Copia el status original
+          statusText: response.statusText,  // Copia el statusText original
+        });
+      })
+    );
+  }
+  obtener_estado(): Observable<HttpResponse<EstadoPedido[]>> {
+    const params = new HttpParams().set('select',"*");
+    return this._apiService.get<EstadoPedido[]>(this.path4, params).pipe(
+      map(response => {
+        console.log(response)
+        const filteredBody = response.body?.filter(estado => estado.nombre != null);
 
         // Retornar una nueva instancia de HttpResponse con el cuerpo filtrado
         return new HttpResponse({
