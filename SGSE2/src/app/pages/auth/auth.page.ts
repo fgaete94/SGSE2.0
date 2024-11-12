@@ -68,7 +68,7 @@ async login(username: string, password: string) {
 
     if (this.userInfo && this.userInfo.user === username) {
       // Desencriptar la contraseña almacenada para compararla
-      const bytes = CryptoJS.AES.decrypt(this.userInfo.password, environment.secretKey);
+      const bytes = CryptoJS.AES.decrypt(this.userInfo.password, environment.SECRETKEY);
       const decryptedPassword = bytes.toString(CryptoJS.enc.Utf8);
 
       if (decryptedPassword === password) {
@@ -82,7 +82,7 @@ async login(username: string, password: string) {
 
         const expiration = Date.now() + this.sessionDuration;
         const userData = { ...this.userInfo, expiration };
-        const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(userData), environment.secretKey).toString();
+        const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(userData), environment.SECRETKEY).toString();
 
         await Preferences.set({
           key: 'userData',

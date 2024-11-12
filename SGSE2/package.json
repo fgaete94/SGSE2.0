@@ -159,9 +159,13 @@
   },
   "name": "SGSE2",
   "scripts": {
+    "generate-env": "node env-config.js",
+    "serve:dev": "ENV=development LOCAL_ENV=true npm run generate-env && ionic serve",
+    "serve:staging": "ENV=staging LOCAL_ENV=true npm run generate-env && ionic serve",
+    "serve:prod": "ENV=production LOCAL_ENV=true npm run generate-env && ionic serve",
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ENV=production npm run generate-env && ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -172,6 +176,7 @@
     "@angular-eslint/eslint-plugin": "^18.4.0",
     "@angular-eslint/eslint-plugin-template": "^18.4.0",
     "@angular-eslint/template-parser": "^18.4.0",
+    "@angular/cli": "18.2.11",
     "@angular/language-service": "^18.2.9",
     "@types/crypto-js": "^4.2.2",
     "@types/jasmine": "^5.1.4",
@@ -189,7 +194,6 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@angular/cli": "^18.2.9",
     "@angular/common": "^18.2.8",
     "@angular/core": "^18.2.8",
     "@angular/forms": "^18.2.8",
@@ -200,6 +204,8 @@
     "@ionic/angular": "^8.3.3",
     "@ionic/angular-toolkit": "^12.1.1",
     "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "win-node-env": "^0.6.1",
     "xlsx": "^0.18.5"
   }
 }

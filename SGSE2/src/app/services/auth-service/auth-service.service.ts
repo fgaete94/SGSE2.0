@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 })
 export class AuthServiceService {
   private path = 'Usuario'; // Nombre de la tabla en Supabase
-  private apiUrl = environment.api_url; // URL base de la API
+  private apiUrl = environment.API_URL; // URL base de la API
 
   constructor(private http: HttpClient) {} // Inyectamos HttpClient
 
@@ -41,7 +41,7 @@ export class AuthServiceService {
     if (value) {
       try {
         console.log('try');
-        const bytes = CryptoJS.AES.decrypt(value, environment.secretKey);
+        const bytes = CryptoJS.AES.decrypt(value, environment.SECRETKEY);
         const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         return decryptedData;
       } catch (e) {
@@ -60,8 +60,8 @@ export class AuthServiceService {
     const params = new HttpParams().set('select', '*');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'apiKey': environment.apiKeySupabase,
-      'Authorization': `Bearer ${environment.apiKeySupabase}`,
+      'apiKey': environment.APIKEYSUPABASE,
+      'Authorization': `Bearer ${environment.APIKEYSUPABASE}`,
     });
 
     return this.http.get<User[]>(`${this.apiUrl}/${this.path}`, { params, observe: 'response', headers }).pipe(
@@ -81,8 +81,8 @@ export class AuthServiceService {
   registrarUsuario(userData: any): Observable<HttpResponse<any>> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'apiKey': environment.apiKeySupabase,
-      'Authorization': `Bearer ${environment.apiKeySupabase}`,
+      'apiKey': environment.APIKEYSUPABASE,
+      'Authorization': `Bearer ${environment.APIKEYSUPABASE}`,
     });
 
     return this.http.post<any>(`${this.apiUrl}/${this.path}`, userData, {

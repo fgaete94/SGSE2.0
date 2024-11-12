@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class ApiConfigService {
   
   
-  baseUrl = environment.api_url;
+  baseUrl = environment.API_URL;
 
   constructor(private http: HttpClient, private toastCtrl : ToastController) { }
 
@@ -18,8 +18,8 @@ export class ApiConfigService {
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'apiKey': environment.apiKeySupabase,
-      'Authorization': `Bearer ${environment.apiKeySupabase}`
+      'apiKey': environment.APIKEYSUPABASE,
+      'Authorization': `Bearer ${environment.APIKEYSUPABASE}`
     });
   }
 

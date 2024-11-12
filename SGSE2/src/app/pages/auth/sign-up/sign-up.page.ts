@@ -61,7 +61,7 @@ export class SignUpPage {
     }
 
     // Encriptar la contraseña antes de enviarla
-    const encryptedPassword = CryptoJS.AES.encrypt(this.password, environment.secretKey).toString();
+    const encryptedPassword = CryptoJS.AES.encrypt(this.password, environment.SECRETKEY).toString();
 
     const newUser = {
       nombre: this.nombre,

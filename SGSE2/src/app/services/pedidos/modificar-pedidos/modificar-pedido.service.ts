@@ -79,7 +79,7 @@ export class ModificarPedidoService {
     return this._apiService.get<EstadoPedido[]>(this.path4, params).pipe(
       map(response => {
         console.log(response)
-        const filteredBody = response.body?.filter(estado => estado.nombre != null);
+        const filteredBody = response.body?.filter(estado => estado.id != null);
 
         // Retornar una nueva instancia de HttpResponse con el cuerpo filtrado
         return new HttpResponse({

@@ -121,7 +121,7 @@ export class HomePage {
     
       if (value) {
         try {
-          const bytes = CryptoJS.AES.decrypt(value, environment.secretKey);
+          const bytes = CryptoJS.AES.decrypt(value, environment.SECRETKEY);
           const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
           this.userInfo = JSON.parse(decryptedData);
           console.log("userInfo asignado después de desencriptar:", JSON.stringify(this.userInfo, null, 2)); // Mostrar toda la estructura
@@ -173,7 +173,7 @@ export class HomePage {
     
     if (value) {
       try {
-        const bytes = CryptoJS.AES.decrypt(value, environment.secretKey);
+        const bytes = CryptoJS.AES.decrypt(value, environment.SECRETKEY);
         const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
         this.userInfo = JSON.parse(decryptedData);
         
