@@ -18,8 +18,8 @@ export class ApiConfigService {
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'apiKey': environment.APIKEYSUPABASE,
-      'Authorization': `Bearer ${environment.APIKEYSUPABASE}`
+      'apiKey': environment.API_KEY_SUPABASE,
+      'Authorization': `Bearer ${environment.API_KEY_SUPABASE}`
     });
   }
 

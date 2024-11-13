@@ -60,8 +60,8 @@ export class AuthServiceService {
     const params = new HttpParams().set('select', '*');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'apiKey': environment.APIKEYSUPABASE,
-      'Authorization': `Bearer ${environment.APIKEYSUPABASE}`,
+      'apiKey': environment.API_KEY_SUPABASE,
+      'Authorization': `Bearer ${environment.API_KEY_SUPABASE}`,
     });
 
     return this.http.get<User[]>(`${this.apiUrl}/${this.path}`, { params, observe: 'response', headers }).pipe(
@@ -81,8 +81,8 @@ export class AuthServiceService {
   registrarUsuario(userData: any): Observable<HttpResponse<any>> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'apiKey': environment.APIKEYSUPABASE,
-      'Authorization': `Bearer ${environment.APIKEYSUPABASE}`,
+      'apiKey': environment.API_KEY_SUPABASE,
+      'Authorization': `Bearer ${environment.API_KEY_SUPABASE}`,
     });
 
     return this.http.post<any>(`${this.apiUrl}/${this.path}`, userData, {
