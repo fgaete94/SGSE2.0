@@ -32,7 +32,7 @@ if (!isAppflow && envFilePath) {
 
   API_URL: process.env.API_URL || '',
 
-  API_KEY_SUPABASE: process.env.API_KEY_SUPABASE || '',
+  APIKEYSUPABASE: process.env.API_KEY_SUPABASE || '',
 
  };
 
