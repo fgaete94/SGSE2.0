@@ -4,14 +4,19 @@
 <ion-content [fullscreen]="true">
 
   <div class="image-container">
-    <img src="assets/images/840_560.jpg" alt="mapa">
+    <img *ngIf="photo" [src]="photo" alt="Foto tomada">
+    <img *ngIf="!photo" src="assets/images/840_560.jpg" alt="mapa">
   </div>
+
+  <ion-button (click)="takePhoto()" expand="block" mode="ios">
+    Tomar Fotografía
+    <ion-icon slot="start" name="camera-outline"></ion-icon>
+  </ion-button>
 
   <ion-button (click)="volver()" expand="block" mode="ios">
     Confirmar Entrega
     <ion-icon slot="start" name="checkmark-done-outline"></ion-icon>
   </ion-button>
-
 
   <ion-button (click)="volver()" expand="block" mode="ios">
     Volver a Pedidos

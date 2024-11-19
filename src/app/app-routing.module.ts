@@ -42,13 +42,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/entrega-pedido/entrega-pedido.module').then( m => m.EntregaPedidoPageModule)
   },
   {
-    path: '',
-    redirectTo: 'auth',
-    pathMatch: 'full'
-  },  {
     path: 'pedidos-totales',
     loadChildren: () => import('./pages/pedidos-totales/pedidos-totales.module').then( m => m.PedidosTotalesPageModule)
   },
+  {
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full'
+  },
+ 
 
 
 
