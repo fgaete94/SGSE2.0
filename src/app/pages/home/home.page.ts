@@ -207,5 +207,19 @@ TERMINAR ESTO
     }
   }*/
 
+    doRefresh(event: any) {
+      console.log('Begin async operation');
+  
+      // Simula una operación asincrónica
+      setTimeout(() => {
+        // Aquí deberías recargar tus pedidos
+        this.obtenerPedido();
+  
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
+  
+
 
 }
