@@ -106,7 +106,7 @@ export class ModificarPedidoService {
     return this._apiService.post<AgregarPedido>(this.path, nuevoPedido);
   }
 
-  actualizarEstado(estadoActualizado:actualizarEstado , n_pedido:number): Observable<HttpResponse<actualizarEstado>>{
+  actualizarEstado(estadoActualizado:actualizarEstado , n_pedido:string): Observable<HttpResponse<actualizarEstado>>{
     const params = new HttpParams().set('n_pedido',`eq.${n_pedido}`)
     return this._apiService.patch<actualizarEstado>(this.path,params,estadoActualizado)
   }
