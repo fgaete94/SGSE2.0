@@ -60,7 +60,7 @@
       <h2>Estado Pedido:</h2>
       </ion-label>
       <ion-select [(ngModel)]="pedidoActualizado.estado" placeholder="{{pedido.estado}}" interface="popover">
-      <ion-select-option *ngFor="let estados of estados" [value]="estados.nombre">{{estados.id}}</ion-select-option>
+      <ion-select-option *ngFor="let estados of estados" [value]="estados.estado">{{estados.estado}}</ion-select-option>
       </ion-select>
     </ion-item>
     </ion-list>

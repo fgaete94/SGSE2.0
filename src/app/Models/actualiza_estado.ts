@@ -1,4 +1,4 @@
 export interface actualizarEstado{
-    delivery: Date;
+    delivery_at: Date;
     estado: string;
 }

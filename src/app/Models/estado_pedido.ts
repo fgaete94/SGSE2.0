@@ -1,4 +1,4 @@
 export interface EstadoPedido{
     id: number;
-    nombre: string;
+    estado: string;
 }

@@ -17,7 +17,7 @@ export class EntregaPedidoPage implements OnInit {
   pedidoId!: number;
   estadoActualizado: actualizarEstado = 
     {
-      delivery: new Date(),
+      delivery_at: new Date(),
       estado: 'Entregado'
     }
   utilsSvc: any;
@@ -77,6 +77,7 @@ export class EntregaPedidoPage implements OnInit {
       response => {
         console.log('Estado del pedido actualizado:', response);
         // Implementa la lógica para manejar la respuesta exitosa
+        this.router.navigate(['/home']);
       },
       error => {
         console.error('Error actualizando el estado del pedido:', error);

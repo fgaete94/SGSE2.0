@@ -73,6 +73,7 @@ export class ModificarPedidoPage implements OnInit {
   }
 
   async actualizarPedido(pedidoActualizado: actualizarPedido) {
+    console.log(pedidoActualizado);
     try {
       console.log(pedidoActualizado);
       const response: HttpResponse<actualizarPedido> = await firstValueFrom(this._serviceModPedido.actualizarPedido(pedidoActualizado, this.n_pedido));
