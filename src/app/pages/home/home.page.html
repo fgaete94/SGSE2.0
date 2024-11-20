@@ -87,7 +87,7 @@
                    </ion-label>
                </ion-item>
 
-               <ion-button (click)="entregaPedido() ; modal.dismiss()"  expand="block" mode="ios" class="submit">
+               <ion-button (click)="entregaPedido(pedido.n_pedido) ; modal.dismiss()"  expand="block" mode="ios" class="submit">
                 Entregar Pedido
                 <ion-icon slot="end" name="receipt-outline"></ion-icon>
               </ion-button>

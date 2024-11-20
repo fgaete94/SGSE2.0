@@ -46,7 +46,7 @@ export class HomePage {
   async ngOnInit() {
     await this.getUserInfo();
     await this.verificarRolUsuario();  // Verifica el rol del usuario al iniciar la vista
-    console.log("Información del usuario en ngOnInit:", JSON.stringify(this.userInfo, null, 2));
+    //console.log("Información del usuario en ngOnInit:", JSON.stringify(this.userInfo, null, 2));
     this.obtenerPedido();
   }
 
@@ -55,7 +55,7 @@ export class HomePage {
     // Asegurarse de actualizar la información del usuario cada vez que se entra a la vista
     await this.getUserInfo();
     await this.verificarRolUsuario();
-    console.log("Información del usuario en ionViewWillEnter:", JSON.stringify(this.userInfo, null, 2));
+    //console.log("Información del usuario en ionViewWillEnter:", JSON.stringify(this.userInfo, null, 2));
   }
 
 
@@ -117,14 +117,14 @@ export class HomePage {
 
     async getUserInfo() {
       const { value } = await Preferences.get({ key: 'userData' });
-      console.log("Valor recuperado de userData:", value); // Verificar el valor recuperado
+      //console.log("Valor recuperado de userData:", value); // Verificar el valor recuperado
     
       if (value) {
         try {
           const bytes = CryptoJS.AES.decrypt(value, environment.SECRETKEY);
           const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
           this.userInfo = JSON.parse(decryptedData);
-          console.log("userInfo asignado después de desencriptar:", JSON.stringify(this.userInfo, null, 2)); // Mostrar toda la estructura
+          //console.log("userInfo asignado después de desencriptar:", JSON.stringify(this.userInfo, null, 2)); // Mostrar toda la estructura
         } catch (error) {
           console.error("Error parsing userData:", error);
         }
@@ -154,8 +154,8 @@ export class HomePage {
     this.router.navigate(['/crear-cliente']);
   } 
 
-  entregaPedido(){
-    this.router.navigate(['/entrega-pedido']);
+  entregaPedido(pedidoId: number) {
+    this.router.navigate(['/entrega-pedido', { id: pedidoId }]);
   }
 
   verReporte(){
@@ -164,7 +164,7 @@ export class HomePage {
 
 
   isAdmin(): boolean {
-    console.log("Verificando rol de usuario:", this.userInfo?.rol);
+    //console.log("Verificando rol de usuario:", this.userInfo?.rol);
     return Number(this.userInfo?.rol) === 1; // Convertimos a número para asegurar la comparación
   }
 
@@ -177,7 +177,7 @@ export class HomePage {
         const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
         this.userInfo = JSON.parse(decryptedData);
         
-        console.log("Verificando el rol del usuario:", JSON.stringify(this.userInfo, null, 2));
+        //console.log("Verificando el rol del usuario:", JSON.stringify(this.userInfo, null, 2));
   
         if (Number(this.userInfo?.rol) !== 1) {
           console.warn("El usuario no tiene el rol de administrador.");
