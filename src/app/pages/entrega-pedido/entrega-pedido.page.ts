@@ -5,6 +5,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Observable } from 'rxjs';
 import { actualizarEstado } from 'src/app/Models/actualiza_estado';
 import { ModificarPedidoService } from 'src/app/services/pedidos/modificar-pedidos/modificar-pedido.service';
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 
 @Component({
   selector: 'app-entrega-pedido',
@@ -12,6 +13,9 @@ import { ModificarPedidoService } from 'src/app/services/pedidos/modificar-pedid
   styleUrls: ['./entrega-pedido.page.scss'],
 })
 export class EntregaPedidoPage implements OnInit {
+
+  currentLatitude: number | null = null;
+  currentLongitude: number | null = null;
 
   photo!: string;
   pedidoId!: number;
@@ -29,7 +33,8 @@ export class EntregaPedidoPage implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private modPedido: ModificarPedidoService
+    private modPedido: ModificarPedidoService,
+    private geolocation: Geolocation,
   ) { }
 
   ngOnInit() {
@@ -75,6 +80,21 @@ export class EntregaPedidoPage implements OnInit {
         // Implementa la lógica para manejar el error
       }
     );
+  }
+
+
+  guardarUbicacion() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.currentLatitude = resp.coords.latitude;
+      this.currentLongitude = resp.coords.longitude;
+
+      console.log('Latitud:', this.currentLatitude, 'Longitud:', this.currentLongitude);
+
+      // Guardar la ubicación en el servidor en este punto
+      
+    }).catch((error) => {
+      console.error('Error al obtener la ubicación', error);
+    });
   }
 
 
