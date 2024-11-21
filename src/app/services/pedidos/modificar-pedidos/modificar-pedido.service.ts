@@ -9,6 +9,7 @@ import { AgregarPedido } from 'src/app/Models/agregar_pedido';
 import { User } from 'src/app/Models/user';
 import { EstadoPedido } from 'src/app/Models/estado_pedido';
 import { actualizarEstado } from 'src/app/Models/actualiza_estado';
+import { EliminarPedido } from 'src/app/Models/eliminar_pedido';
 
 @Injectable({
   providedIn: 'root'
@@ -97,9 +98,9 @@ export class ModificarPedidoService {
     return this._apiService.patch<actualizarPedido>(this.path,params,pedidoActualizado)
   }
 
-  eliminarPedido(n_pedido: number) {
+  eliminarPedido(n_pedido: number,eliminarPedido : EliminarPedido): Observable<HttpResponse<EliminarPedido>> {
     const params = new HttpParams().set('n_pedido', `eq.${n_pedido}`);
-    return this._apiService.delete<Pedido>(this.path, params);
+    return this._apiService.patch<EliminarPedido>(this.path, params,eliminarPedido);
   }
 
   agregarPedido(nuevoPedido: AgregarPedido): Observable<HttpResponse<AgregarPedido>> {

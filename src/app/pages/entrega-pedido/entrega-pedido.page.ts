@@ -18,7 +18,8 @@ export class EntregaPedidoPage implements OnInit {
   estadoActualizado: actualizarEstado = 
     {
       delivery_at: new Date(),
-      estado: 'Entregado'
+      estado: 'Entregado',
+      photo: ''
     }
   utilsSvc: any;
   
@@ -52,27 +53,16 @@ export class EntregaPedidoPage implements OnInit {
     this.photo = image.webPath as string;
   }
 
-   confirmarEntrega(estadoActualizado: actualizarEstado) {
+   confirmarEntrega() {
+    const estadoActualizado ={
+      delivery_at: new Date(),
+      estado: 'Entregado',
+      photo: this.photo
 
-    
-    /*try{
-      console.log(estadoActualizado);
-      const response: HttpResponse<actualizarEstado> = await firstValueFrom(this.modPedido.actualizarEstado(estadoActualizado, this.pedidoId));
-      console.log('Response:', response);
-
-      this.utilsSvc.presentToast({
-        message: 'Pedido Entregado exitosamente', 
-        duration: 1500,
-        color: 'primary',
-        position: 'middle',
-        icon: 'checkmark-done-outline'
-      })
-      this.router.navigate(['/home']);
     }
-    catch (error) {
-      console.error('Error:', error);*/
+
     
-    this.modPedido.actualizarEstado(this.estadoActualizado, this.pedidoId).subscribe(
+    this.modPedido.actualizarEstado(estadoActualizado, this.pedidoId).subscribe(
      
       response => {
         console.log('Estado del pedido actualizado:', response);

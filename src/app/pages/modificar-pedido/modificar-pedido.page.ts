@@ -11,6 +11,7 @@ import { actualizarPedido } from 'src/app/Models/actualizar_pedido';
 import { AlertController } from '@ionic/angular';
 import { ApiConfigService } from 'src/app/services/api-config/api-config.service';
 import { EstadoPedido } from 'src/app/Models/estado_pedido';
+import { EliminarPedido } from 'src/app/Models/eliminar_pedido';
 
 @Component({
   selector: 'app-modificar-pedido',
@@ -34,6 +35,9 @@ export class ModificarPedidoPage implements OnInit {
     tel_contacto: 0,
     update_at: new Date(),
     estado: {} as EstadoPedido
+  }
+  pedidoEliminado: EliminarPedido ={
+    delete_at: new Date()
   }
 
 
@@ -92,9 +96,9 @@ export class ModificarPedidoPage implements OnInit {
   }
 
 
-  async eliminarPedido() {
+  async eliminarPedido(pedidoEliminado: EliminarPedido) {
     try {
-      const response: HttpResponse<Pedido> = await firstValueFrom(this._serviceModPedido.eliminarPedido(this.n_pedido));
+      const response: HttpResponse<EliminarPedido> = await firstValueFrom(this._serviceModPedido.eliminarPedido(this.n_pedido,pedidoEliminado));
       console.log('Pedido eliminado con éxito:', response);
 
       this.utilsSvc.presentToast({

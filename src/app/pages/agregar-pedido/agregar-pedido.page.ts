@@ -11,6 +11,7 @@ import { AgregarPedido } from 'src/app/Models/agregar_pedido';
 import { Cliente } from 'src/app/Models/cliente';
 import { ClienteService } from 'src/app/services/clientes/cliente.service';
 import { User } from 'src/app/Models/user';
+import { EstadoPedido } from 'src/app/Models/estado_pedido';
 import { ApiConfigService } from 'src/app/services/api-config/api-config.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class AgregarPedidoPage implements OnInit {
   comunas: Comuna[] = [];
   cliente: Cliente[] = [];
   repartidor: User[] = [];  // Se agrega el repartidor
+  estado : EstadoPedido[] = [];
   nuevoPedido: AgregarPedido = {
     direccion: '',
     comuna: {} as Comuna,
@@ -33,6 +35,7 @@ export class AgregarPedidoPage implements OnInit {
     producto: {} as Producto,
     cantidad: 0,
     tel_contacto: 0,
+    estado: {} as EstadoPedido,
   };
 
   constructor(
@@ -48,6 +51,7 @@ export class AgregarPedidoPage implements OnInit {
     this.obtenerComunas();
     this.obtenerCliente();
     this.obtenerRepartidor();  // Se agrega el repartidor
+    this.obtenerEstado();
   }
 
   async obtenerPedido(n_pedido: number) {
@@ -72,6 +76,13 @@ export class AgregarPedidoPage implements OnInit {
     );
     console.log(response);
     this.comunas = response.body || [];
+  }
+  async obtenerEstado() {
+    const response: HttpResponse<EstadoPedido[]> = await firstValueFrom(
+      this._serviceModPedido.obtener_estado()
+    );
+    console.log(response);
+    this.estado = response.body || [];
   }
 
   async obtenerCliente() {

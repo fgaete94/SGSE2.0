@@ -22,7 +22,7 @@ export class PedidoService {
     return this._apiService.get<Pedido[]>(this.path, params).pipe(
       map(response => {
         console.log(response)
-        const filteredBody = response.body?.filter(pedido => pedido.n_pedido != null && pedido.estado != "Entregado");
+        const filteredBody = response.body?.filter(pedido => pedido.n_pedido != null && pedido.estado != "Entregado" && pedido.delete_at == null);
 
         // Retornar una nueva instancia de HttpResponse con el cuerpo filtrado
         return new HttpResponse({

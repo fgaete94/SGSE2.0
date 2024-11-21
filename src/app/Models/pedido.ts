@@ -15,5 +15,6 @@ export interface Pedido{
     cantidad: number;
     tel_contacto: number;
     estado: string;
+    delete_at: Date;
 
 }

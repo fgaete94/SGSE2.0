@@ -71,7 +71,7 @@
     <ion-icon slot="end" name="save-outline"></ion-icon>
   </ion-button>
 
-  <ion-button  (click)="eliminarPedido(); volver()" *ngIf="pedidoInfo.length > 0"  expand="block" mode="ios">
+  <ion-button  (click)="eliminarPedido(pedidoEliminado); volver()" *ngIf="pedidoInfo.length > 0"  expand="block" mode="ios">
     Eliminar Pedido
     <ion-icon slot="end" name="trash-bin-outline"></ion-icon>
   </ion-button>

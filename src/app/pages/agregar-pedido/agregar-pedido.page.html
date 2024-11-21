@@ -51,6 +51,14 @@
       <ion-input [(ngModel)]="nuevoPedido.tel_contacto" type="tel" placeholder="Ingrese el teléfono"></ion-input>
     </ion-item>
 
+    <ion-item color="light">
+      <ion-label>Estado <ion-text color="danger">(Required)</ion-text></ion-label>
+      <ion-select [(ngModel)]="nuevoPedido.estado" interface="popover" placeholder="Seleccione Estado">
+        <ion-select-option *ngFor="let estado of estado" [value]="estado.estado">{{estado.estado}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
     <ion-button (click)="agregarPedido()" expand="block" mode="ios" class="submit">
       Agregar Pedido
       <ion-icon slot="end" name="duplicate-outline"></ion-icon>
