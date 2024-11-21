@@ -54,6 +54,7 @@ export class EntregaPedidoPage implements OnInit {
   }
 
    confirmarEntrega() {
+    console.log(this.photo);
     const estadoActualizado ={
       delivery_at: new Date(),
       estado: 'Entregado',
