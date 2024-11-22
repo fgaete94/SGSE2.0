@@ -47,6 +47,7 @@ export class EntregaPedidoPage implements OnInit {
         console.log('Pedido ID:', this.pedidoId);
       }
     });
+    this.guardarUbicacion();
   }
 
   async takePhoto() {
@@ -60,7 +61,10 @@ export class EntregaPedidoPage implements OnInit {
     this.photo = image.webPath as string;
   }
 
-   confirmarEntrega() {
+   async confirmarEntrega() {
+    await this.guardarUbicacion();
+    console.log(this.currentLatitude,this.currentLongitude);
+
     console.log(this.photo);
     const estadoActualizado ={
       delivery_at: new Date(),
