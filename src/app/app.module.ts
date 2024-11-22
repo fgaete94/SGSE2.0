@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AuthServiceService } from './services/auth-service/auth-service.service';
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { AuthServiceService } from './services/auth-service/auth-service.service
     provideHttpClient(withInterceptorsFromDi()), // Configuración recomendada para HttpClient
     AuthGuard,
     AuthServiceService,
+    Geolocation,
   ],
   bootstrap: [AppComponent],
 })

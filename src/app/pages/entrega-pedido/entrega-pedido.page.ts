@@ -5,6 +5,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Observable } from 'rxjs';
 import { actualizarEstado } from 'src/app/Models/actualiza_estado';
 import { ModificarPedidoService } from 'src/app/services/pedidos/modificar-pedidos/modificar-pedido.service';
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 
 @Component({
   selector: 'app-entrega-pedido',
@@ -13,13 +14,18 @@ import { ModificarPedidoService } from 'src/app/services/pedidos/modificar-pedid
 })
 export class EntregaPedidoPage implements OnInit {
 
+  currentLatitude!: number;
+  currentLongitude!: number;
+
   photo!: string;
   pedidoId!: number;
   estadoActualizado: actualizarEstado = 
     {
       delivery_at: new Date(),
       estado: 'Entregado',
-      photo: ''
+      photo: '',
+      longitud: 0,
+      latitud: 0
     }
   utilsSvc: any;
   
@@ -29,7 +35,8 @@ export class EntregaPedidoPage implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private modPedido: ModificarPedidoService
+    private modPedido: ModificarPedidoService,
+    private geolocation: Geolocation,
   ) { }
 
   ngOnInit() {
@@ -58,7 +65,9 @@ export class EntregaPedidoPage implements OnInit {
     const estadoActualizado ={
       delivery_at: new Date(),
       estado: 'Entregado',
-      photo: this.photo
+      photo: this.photo,
+      longitud: this.currentLongitude,
+      latitud: this.currentLatitude
 
     }
 
@@ -75,6 +84,21 @@ export class EntregaPedidoPage implements OnInit {
         // Implementa la lógica para manejar el error
       }
     );
+  }
+
+
+  guardarUbicacion() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.currentLatitude = resp.coords.latitude;
+      this.currentLongitude = resp.coords.longitude;
+
+      console.log('Latitud:', this.currentLatitude, 'Longitud:', this.currentLongitude);
+
+      // Guardar la ubicación en el servidor en este punto
+      
+    }).catch((error) => {
+      console.error('Error al obtener la ubicación', error);
+    });
   }
 
 
