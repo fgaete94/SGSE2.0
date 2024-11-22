@@ -14,8 +14,8 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 })
 export class EntregaPedidoPage implements OnInit {
 
-  currentLatitude: number | null = null;
-  currentLongitude: number | null = null;
+  currentLatitude!: number;
+  currentLongitude!: number;
 
   photo!: string;
   pedidoId!: number;
@@ -23,7 +23,9 @@ export class EntregaPedidoPage implements OnInit {
     {
       delivery_at: new Date(),
       estado: 'Entregado',
-      photo: ''
+      photo: '',
+      longitud: 0,
+      latitud: 0
     }
   utilsSvc: any;
   
@@ -63,7 +65,9 @@ export class EntregaPedidoPage implements OnInit {
     const estadoActualizado ={
       delivery_at: new Date(),
       estado: 'Entregado',
-      photo: this.photo
+      photo: this.photo,
+      longitud: this.currentLongitude,
+      latitud: this.currentLatitude
 
     }
 
