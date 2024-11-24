@@ -86,6 +86,27 @@ export class EntregaPedidoPage implements OnInit {
     );
   }
 
+  // Función para convertir grados decimales a GMS
+  decimalToDMS(lat: number, lng: number): { lat: string, lng: string } {
+    const convert = (decimal: number) => {
+      const degrees = Math.floor(decimal);
+      const minutesNotTruncated = (decimal - degrees) * 60;
+      const minutes = Math.floor(minutesNotTruncated);
+      const seconds = Math.floor((minutesNotTruncated - minutes) * 60);
+      return `${degrees}°${minutes}'${seconds}"`;
+    };
+
+    const latDMS = convert(lat);
+    const lngDMS = convert(lng);
+
+    return { lat: latDMS, lng: lngDMS };
+  }
+
+  // Función para generar el enlace a Google Maps
+  generateGoogleMapsLink(lat: number, lng: number): string {
+    const { lat: latDMS, lng: lngDMS } = this.decimalToDMS(lat, lng);
+    return `https://www.google.com/maps?q=${latDMS},${lngDMS}`;
+  }
 
   guardarUbicacion() {
     this.geolocation.getCurrentPosition().then((resp) => {
@@ -94,6 +115,10 @@ export class EntregaPedidoPage implements OnInit {
 
       console.log('Latitud:', this.currentLatitude, 'Longitud:', this.currentLongitude);
 
+      // Convertir a GMS y generar enlace a Google Maps
+      const googleMapsLink = this.generateGoogleMapsLink(this.currentLatitude, this.currentLongitude);
+      console.log('Google Maps Link:', googleMapsLink);
+
       // Guardar la ubicación en el servidor en este punto
       
     }).catch((error) => {
@@ -101,14 +126,12 @@ export class EntregaPedidoPage implements OnInit {
     });
   }
 
-
-
   volver() {
     this.router.navigate(['/home']);
   }
+  
 
 }
 function firstValueFrom(arg0: Observable<HttpResponse<actualizarEstado>>): any {
   throw new Error('Function not implemented.');
 }
-
