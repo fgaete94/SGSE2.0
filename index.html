@@ -1,1 +1,24 @@
-<h1>hola mundo</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SGSE 2.0</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    function detectDevice() {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      const contentDiv = document.getElementById('content');
+      if (isMobile) {
+        contentDiv.innerHTML = '<button onclick="window.location.href=\'https://play.google.com/store\';">Go to Store</button>';
+      } else {
+        contentDiv.innerHTML = '<p>Scan this QR code to download the app:</p><img src="https://api.qrserver.com/v1/create-qr-code/?data=https://play.google.com/store&size=200x200" alt="QR Code">';
+      }
+    }
+    window.onload = detectDevice;
+  </script>
+</head>
+<body>
+  <h1>Welcome to SGSE 2.0</h1>
+  <div id="content"></div>
+</body>
+</html>
