@@ -19,13 +19,15 @@ export class EntregaPedidoPage implements OnInit {
 
   photo!: string;
   pedidoId!: number;
+  googleMapsLink!: string;
   estadoActualizado: actualizarEstado = 
     {
       delivery_at: new Date(),
       estado: 'Entregado',
       photo: '',
       longitud: 0,
-      latitud: 0
+      latitud: 0,
+      ubicacion: '',
     }
   utilsSvc: any;
   
@@ -47,6 +49,8 @@ export class EntregaPedidoPage implements OnInit {
         console.log('Pedido ID:', this.pedidoId);
       }
     });
+    this.guardarUbicacion();
+    this.decimalToDMS(this.currentLatitude,this.currentLongitude);
   }
 
   async takePhoto() {
@@ -67,7 +71,8 @@ export class EntregaPedidoPage implements OnInit {
       estado: 'Entregado',
       photo: this.photo,
       longitud: this.currentLongitude,
-      latitud: this.currentLatitude
+      latitud: this.currentLatitude,
+      ubicacion: this.googleMapsLink,
 
     }
 
@@ -116,8 +121,8 @@ export class EntregaPedidoPage implements OnInit {
       console.log('Latitud:', this.currentLatitude, 'Longitud:', this.currentLongitude);
 
       // Convertir a GMS y generar enlace a Google Maps
-      const googleMapsLink = this.generateGoogleMapsLink(this.currentLatitude, this.currentLongitude);
-      console.log('Google Maps Link:', googleMapsLink);
+      this.googleMapsLink = this.generateGoogleMapsLink(this.currentLatitude, this.currentLongitude);
+      console.log('Google Maps Link:', this.googleMapsLink);
 
       // Guardar la ubicación en el servidor en este punto
       
