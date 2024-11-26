@@ -109,23 +109,20 @@ export class EntregaPedidoPage implements OnInit {
 
   // Función para generar el enlace a Google Maps
   generateGoogleMapsLink(lat: number, lng: number): string {
-    const { lat: latDMS, lng: lngDMS } = this.decimalToDMS(lat, lng);
-    return `https://www.google.com/maps?q=${latDMS},${lngDMS}`;
+    return `https://www.google.com/maps?q=${lat},${lng}`;
   }
 
   guardarUbicacion() {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.currentLatitude = resp.coords.latitude;
       this.currentLongitude = resp.coords.longitude;
-
+  
       console.log('Latitud:', this.currentLatitude, 'Longitud:', this.currentLongitude);
-
-      // Convertir a GMS y generar enlace a Google Maps
+  
+      // Generar enlace directamente con las coordenadas decimales
       this.googleMapsLink = this.generateGoogleMapsLink(this.currentLatitude, this.currentLongitude);
       console.log('Google Maps Link:', this.googleMapsLink);
-
-      // Guardar la ubicación en el servidor en este punto
-      
+  
     }).catch((error) => {
       console.error('Error al obtener la ubicación', error);
     });
