@@ -173,9 +173,8 @@ body {
   margin: 0;
   font-family: 'Arial', sans-serif;
   color: white;
-  background-color: #002b36;
-  background-image: url('https://images.unsplash.com/photo-1543752102-8a3dc6449923'); /* Opcional: fondo navideño */
-  background-size: cover;
+  background-color: #004400;
+  background-image: linear-gradient(to bottom, #004400, #880000);
   background-attachment: fixed;
 }
 
@@ -192,6 +191,8 @@ h1, h2, h3 {
 .header {
   text-align: center;
   padding: 20px;
+  background: #880000;
+  color: white;
 }
 
 .navbar {
@@ -199,6 +200,7 @@ h1, h2, h3 {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas pequeñas */
 }
 
 .logo {
@@ -207,13 +209,15 @@ h1, h2, h3 {
 }
 
 .highlight {
-  color: gold;
+  color: #32CD32;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
   gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center; /* Centra los enlaces en pantallas pequeñas */
 }
 
 .nav-links li {
@@ -222,8 +226,8 @@ h1, h2, h3 {
 
 .cta {
   padding: 10px 20px;
-  background: gold;
-  color: black;
+  background: #32CD32;
+  color: white;
   border-radius: 5px;
   font-weight: bold;
 }
@@ -236,22 +240,26 @@ h1, h2, h3 {
   justify-content: center;
   height: 80vh;
   text-align: center;
+  position: relative;
+  padding: 10px; /* Agrega un margen interno para pantallas pequeñas */
 }
 
 .qr-container {
   background: url('https://upload.wikimedia.org/wikipedia/commons/a/a6/Santa_and_reindeer_silhouette.png') no-repeat center;
   background-size: contain;
-  padding: 40px;
+  padding: 20px;
+  max-width: 100%; /* Ajusta el tamaño máximo al ancho de la pantalla */
 }
 
 .qr-code {
   margin-top: 20px;
-  width: 200px;
-  height: 200px;
+  width: 100%; /* Hace que la imagen se ajuste al contenedor */
+  max-width: 200px; /* Limita el tamaño máximo */
+  height: auto;
 }
 
 .qr-text {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: white;
   margin-bottom: 10px;
 }
@@ -260,7 +268,51 @@ h1, h2, h3 {
 .footer {
   padding: 20px;
   text-align: center;
-  background-color: #000;
+  background-color: #880000;
   font-size: 0.9rem;
+  color: white;
 }
 
+/* Decorations */
+body::before, body::after {
+  content: '';
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/1/17/Christmas_tree_ornament_2013.png') no-repeat center;
+  background-size: contain;
+}
+
+body::before {
+  top: 10px;
+  left: 10px;
+}
+
+body::after {
+  top: 10px;
+  right: 10px;
+}
+
+/* Media Queries (Responsive Design) */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .nav-links {
+    flex-direction: column; /* Coloca los enlaces en una columna */
+    gap: 10px;
+  }
+
+  .cta {
+    margin-top: 10px;
+  }
+
+  .qr-container {
+    padding: 10px;
+  }
+
+  .qr-text {
+    font-size: 0.9rem;
+  }
+}
