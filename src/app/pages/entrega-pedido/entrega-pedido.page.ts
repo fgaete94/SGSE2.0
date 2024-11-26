@@ -50,7 +50,6 @@ export class EntregaPedidoPage implements OnInit {
       }
     });
     this.guardarUbicacion();
-    this.decimalToDMS(this.currentLatitude,this.currentLongitude);
   }
 
   async takePhoto() {
@@ -64,7 +63,10 @@ export class EntregaPedidoPage implements OnInit {
     this.photo = image.webPath as string;
   }
 
-   confirmarEntrega() {
+   async confirmarEntrega() {
+    await this.guardarUbicacion();
+    console.log(this.currentLatitude,this.currentLongitude);
+
     console.log(this.photo);
     const estadoActualizado ={
       delivery_at: new Date(),
@@ -92,7 +94,7 @@ export class EntregaPedidoPage implements OnInit {
   }
 
   // Función para convertir grados decimales a GMS
-  decimalToDMS(lat: number, lng: number): { lat: string, lng: string } {
+ /* decimalToDMS(lat: number, lng: number): { lat: string, lng: string } {
     const convert = (decimal: number) => {
       const degrees = Math.floor(decimal);
       const minutesNotTruncated = (decimal - degrees) * 60;
@@ -105,7 +107,7 @@ export class EntregaPedidoPage implements OnInit {
     const lngDMS = convert(lng);
 
     return { lat: latDMS, lng: lngDMS };
-  }
+  }*/
 
   // Función para generar el enlace a Google Maps
   generateGoogleMapsLink(lat: number, lng: number): string {
