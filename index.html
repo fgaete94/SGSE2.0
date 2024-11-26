@@ -1,49 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>SGSE 2.0</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: rgba(255, 255, 255, 0.8) url('src/assets/images/1366_2000.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #000000;
-      text-align: center;
-    }
-    #content {
-      margin-top: 20%;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #007bff;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Realiza el seguimiento y gestión de entregas de pedidos fácilmente con nuestra aplicación.">
+  <title>Gestión de Entregas</title>
+  <link rel="stylesheet" href="styles.css">
   <script>
     function detectDevice() {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       const contentDiv = document.getElementById('content');
       if (isMobile) {
-        contentDiv.innerHTML = '<button onclick="window.location.href=\'https://play.google.com/store\';">Go to Store</button>';
+        contentDiv.innerHTML = '<button class="btn" onclick="window.location.href=\'https://play.google.com/store\';">Descargar la App</button>';
       } else {
-        contentDiv.innerHTML = '<p>Scan this QR code to download the app:</p><img src="https://api.qrserver.com/v1/create-qr-code/?data=https://play.google.com/store&size=200x200" alt="QR Code">';
+        contentDiv.innerHTML = `
+          <p class="qr-text">Escanea este código QR para descargar la aplicación:</p>
+          <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?data=https://play.google.com/store&size=200x200" alt="Código QR">
+        `;
       }
     }
     window.onload = detectDevice;
   </script>
 </head>
 <body>
-  <h1>Welcome to SGSE 2.0</h1>
-  <div id="content"></div>
+  <header class="header">
+    <nav class="navbar">
+      <h1 class="logo">Entrega<span class="highlight">PRO</span></h1>
+      <ul class="nav-links">
+        <li><a href="#features">Características</a></li>
+        <li><a href="#testimonials">Testimonios</a></li>
+        <li><a href="#download">Descargar</a></li>
+      </ul>
+      <a href="#download" class="cta">Prueba Ahora</a>
+    </nav>
+  </header>
+
+  <main id="content" class="main-content">
+    <!-- El contenido dinámico será insertado aquí por el script -->
+  </main>
+
+  <section id="features" class="features">
+    <div class="feature">
+      <h3>Seguimiento en Tiempo Real</h3>
+      <p>Visualiza tus entregas en tiempo real con actualizaciones precisas.</p>
+    </div>
+    <div class="feature">
+      <h3>Gestión Simplificada</h3>
+      <p>Organiza tus pedidos desde cualquier lugar y en cualquier momento.</p>
+    </div>
+    <div class="feature">
+      <h3>Interfaz Intuitiva</h3>
+      <p>Una experiencia diseñada para que gestionar sea un placer.</p>
+    </div>
+  </section>
+
+  <section id="testimonials" class="testimonials">
+    <h2>Lo que dicen nuestros usuarios</h2>
+    <div class="testimonial">
+      <p>"La mejor aplicación para controlar mis entregas. Es rápida y confiable."</p>
+      <h4>- María López</h4>
+    </div>
+    <div class="testimonial">
+      <p>"Gestionar mis pedidos nunca fue tan fácil. ¡Muy recomendada!"</p>
+      <h4>- Carlos Sánchez</h4>
+    </div>
+  </section>
+
+  <section id="download" class="download">
+    <h2>Empieza Ahora</h2>
+    <p>Descarga la aplicación y transforma la manera en que gestionas tus entregas.</p>
+    <a href="#" class="btn">Descargar</a>
+  </section>
+
+  <footer class="footer">
+    <p>© 2024 EntregaPRO. Todos los derechos reservados.</p>
+  </footer>
 </body>
 </html>
