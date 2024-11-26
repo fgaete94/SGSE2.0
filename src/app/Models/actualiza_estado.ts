@@ -4,4 +4,5 @@ export interface actualizarEstado{
     photo: string;
     latitud: number;
     longitud: number;
+    ubicacion: string;
 }
