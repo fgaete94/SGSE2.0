@@ -7,6 +7,7 @@ import { actualizarEstado } from 'src/app/Models/actualiza_estado';
 import { ModificarPedidoService } from 'src/app/services/pedidos/modificar-pedidos/modificar-pedido.service';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { createClient } from '@supabase/supabase-js';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-entrega-pedido',
@@ -14,7 +15,7 @@ import { createClient } from '@supabase/supabase-js';
   styleUrls: ['./entrega-pedido.page.scss'],
 })
 export class EntregaPedidoPage implements OnInit {
-  private supabase = createClient('https://nfpulkphukfwoqsmpmaj.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5mcHVsa3BodWtmd29xc21wbWFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcyMTk0MTgsImV4cCI6MjA0Mjc5NTQxOH0.Yc0or48cXI7dgP5y7ylxMRG2M_Sl3lyQJaKYdg0GOis');
+  private supabase = createClient('https://nfpulkphukfwoqsmpmaj.supabase.co', environment.API_KEY_SUPABASE);
 
   currentLatitude!: number;
   currentLongitude!: number;
