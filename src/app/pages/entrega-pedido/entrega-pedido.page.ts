@@ -1,11 +1,12 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router,ActivatedRoute  } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Observable } from 'rxjs';
 import { actualizarEstado } from 'src/app/Models/actualiza_estado';
 import { ModificarPedidoService } from 'src/app/services/pedidos/modificar-pedidos/modificar-pedido.service';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { createClient } from '@supabase/supabase-js';
 
 @Component({
   selector: 'app-entrega-pedido',
@@ -13,6 +14,7 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
   styleUrls: ['./entrega-pedido.page.scss'],
 })
 export class EntregaPedidoPage implements OnInit {
+  private supabase = createClient('https://nfpulkphukfwoqsmpmaj.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5mcHVsa3BodWtmd29xc21wbWFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcyMTk0MTgsImV4cCI6MjA0Mjc5NTQxOH0.Yc0or48cXI7dgP5y7ylxMRG2M_Sl3lyQJaKYdg0GOis');
 
   currentLatitude!: number;
   currentLongitude!: number;
@@ -20,7 +22,7 @@ export class EntregaPedidoPage implements OnInit {
   photo!: string;
   pedidoId!: number;
   googleMapsLink!: string;
-  estadoActualizado: actualizarEstado = 
+  estadoActualizado: actualizarEstado =
     {
       delivery_at: new Date(),
       estado: 'Entregado',
@@ -30,10 +32,10 @@ export class EntregaPedidoPage implements OnInit {
       ubicacion: '',
     }
   utilsSvc: any;
-  
-  
- 
-  
+
+
+
+
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -56,19 +58,66 @@ export class EntregaPedidoPage implements OnInit {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
-      resultType: CameraResultType.Uri,
-      source: CameraSource.Camera
+      resultType: CameraResultType.Base64, // Cambiar a Base64 para subir el archivo
+      source: CameraSource.Camera,
     });
 
-    this.photo = image.webPath as string;
+    if (image.base64String) {
+      // Convierte la base64 a un Blob
+      const fileName = `pedido-${Date.now()}.jpg`;
+      const blob = this.base64ToBlob(image.base64String, 'image/jpeg');
+
+      // Sube la imagen a Supabase Storage
+      const { data, error } = await this.supabase.storage
+        .from('pedidos')
+        .upload(fileName, blob);
+
+      if (error) {
+        console.error('Error al subir la imagen a Supabase Storage:', error.message);
+        return;
+      }
+
+      // Obtén el enlace público de la imagen
+      const { data: publicData } = this.supabase.storage
+        .from('pedidos')
+        .getPublicUrl(fileName);
+
+      if (!publicData) {
+        console.error('Error al obtener el enlace público.');
+        return;
+      }
+
+      if (publicData.publicUrl) {
+        this.photo = publicData.publicUrl; // Enlace público de la imagen
+        console.log('Enlace público de la imagen:', this.photo);
+      } else {
+        console.error('No se pudo obtener el enlace público de la imagen.');
+      }
+    }
   }
 
-   async confirmarEntrega() {
+  // Función para convertir base64 a Blob
+  private base64ToBlob(base64: string, contentType: string): Blob {
+    const byteCharacters = atob(base64);
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    return new Blob(byteArrays, { type: contentType });
+  }
+
+  async confirmarEntrega() {
     await this.guardarUbicacion();
-    console.log(this.currentLatitude,this.currentLongitude);
+    console.log(this.currentLatitude, this.currentLongitude);
 
     console.log(this.photo);
-    const estadoActualizado ={
+    const estadoActualizado = {
       delivery_at: new Date(),
       estado: 'Entregado',
       photo: this.photo,
@@ -78,9 +127,9 @@ export class EntregaPedidoPage implements OnInit {
 
     }
 
-    
+
     this.modPedido.actualizarEstado(estadoActualizado, this.pedidoId).subscribe(
-     
+
       response => {
         console.log('Estado del pedido actualizado:', response);
         // Implementa la lógica para manejar la respuesta exitosa
@@ -94,20 +143,20 @@ export class EntregaPedidoPage implements OnInit {
   }
 
   // Función para convertir grados decimales a GMS
- /* decimalToDMS(lat: number, lng: number): { lat: string, lng: string } {
-    const convert = (decimal: number) => {
-      const degrees = Math.floor(decimal);
-      const minutesNotTruncated = (decimal - degrees) * 60;
-      const minutes = Math.floor(minutesNotTruncated);
-      const seconds = Math.floor((minutesNotTruncated - minutes) * 60);
-      return `${degrees}°${minutes}'${seconds}"`;
-    };
-
-    const latDMS = convert(lat);
-    const lngDMS = convert(lng);
-
-    return { lat: latDMS, lng: lngDMS };
-  }*/
+  /* decimalToDMS(lat: number, lng: number): { lat: string, lng: string } {
+     const convert = (decimal: number) => {
+       const degrees = Math.floor(decimal);
+       const minutesNotTruncated = (decimal - degrees) * 60;
+       const minutes = Math.floor(minutesNotTruncated);
+       const seconds = Math.floor((minutesNotTruncated - minutes) * 60);
+       return `${degrees}°${minutes}'${seconds}"`;
+     };
+ 
+     const latDMS = convert(lat);
+     const lngDMS = convert(lng);
+ 
+     return { lat: latDMS, lng: lngDMS };
+   }*/
 
   // Función para generar el enlace a Google Maps
   generateGoogleMapsLink(lat: number, lng: number): string {
@@ -118,13 +167,13 @@ export class EntregaPedidoPage implements OnInit {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.currentLatitude = resp.coords.latitude;
       this.currentLongitude = resp.coords.longitude;
-  
+
       console.log('Latitud:', this.currentLatitude, 'Longitud:', this.currentLongitude);
-  
+
       // Generar enlace directamente con las coordenadas decimales
       this.googleMapsLink = this.generateGoogleMapsLink(this.currentLatitude, this.currentLongitude);
       console.log('Google Maps Link:', this.googleMapsLink);
-  
+
     }).catch((error) => {
       console.error('Error al obtener la ubicación', error);
     });
@@ -133,7 +182,7 @@ export class EntregaPedidoPage implements OnInit {
   volver() {
     this.router.navigate(['/home']);
   }
-  
+
 
 }
 function firstValueFrom(arg0: Observable<HttpResponse<actualizarEstado>>): any {
