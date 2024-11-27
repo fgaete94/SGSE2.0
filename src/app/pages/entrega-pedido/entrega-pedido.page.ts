@@ -142,21 +142,7 @@ export class EntregaPedidoPage implements OnInit {
     );
   }
 
-  // Función para convertir grados decimales a GMS
-  /* decimalToDMS(lat: number, lng: number): { lat: string, lng: string } {
-     const convert = (decimal: number) => {
-       const degrees = Math.floor(decimal);
-       const minutesNotTruncated = (decimal - degrees) * 60;
-       const minutes = Math.floor(minutesNotTruncated);
-       const seconds = Math.floor((minutesNotTruncated - minutes) * 60);
-       return `${degrees}°${minutes}'${seconds}"`;
-     };
- 
-     const latDMS = convert(lat);
-     const lngDMS = convert(lng);
- 
-     return { lat: latDMS, lng: lngDMS };
-   }*/
+
 
   // Función para generar el enlace a Google Maps
   generateGoogleMapsLink(lat: number, lng: number): string {
