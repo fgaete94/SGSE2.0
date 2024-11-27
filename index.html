@@ -11,11 +11,11 @@
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       const contentDiv = document.getElementById('content');
       if (isMobile) {
-        contentDiv.innerHTML = '<button class="btn" onclick="window.location.href=\'https://play.google.com/store\';">Descargar la App</button>';
+        contentDiv.innerHTML = '<button class="btn" onclick="window.location.href=\'https://drive.google.com/file/d/18Yk7kymEX33PxiHsn71iH8wjW1QdLIHt/view?usp=drive_link\';">Descargar la App</button>';
       } else {
         contentDiv.innerHTML = `
           <p class="qr-text">Escanea este código QR para descargar la aplicación:</p>
-          <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?data=https://play.google.com/store&size=200x200" alt="Código QR">
+          <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?data=https://drive.google.com/file/d/18Yk7kymEX33PxiHsn71iH8wjW1QdLIHt/view?usp=drive_link" alt="Código QR">
         `;
       }
     }
