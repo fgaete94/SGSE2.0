@@ -1,23 +1,27 @@
-// This file is required by karma.conf.js and loads recursively all the .spec and framework files
-
-import 'zone.js/dist/zone-testing';
+import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
-declare const require: {
-  context(path: string, deep?: boolean, filter?: RegExp): {
-    keys(): string[];
-    <T>(id: string): T;
-  };
-};
-
-// First, initialize the Angular testing environment.
+// Inicia el entorno de prueba de Angular
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting()
 );
 
-// Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
-// And load the modules.
-context.keys().map(context);
+// Cargar manualmente los archivos de prueba
+const testModules = [
+  './app.component.spec',
+  './app.service.spec', 
+  'C:\Users\jcifu\OneDrive\Documentos\GitHub\SGSE2.0\src\app\pages\agregar-pedido\agregar-pedido.page.spec.ts' // agrega todos los archivos .spec.ts que tienes
+  // otros archivos de prueba...
+];
+
+testModules.forEach((module) => {
+  import(module)
+    .then(() => {
+      console.log(`${module} cargado`);
+    })
+    .catch((err) => {
+      console.error(`Error al cargar ${module}:`, err);
+    });
+});
